@@ -1,4 +1,4 @@
-enum LessonType {
+export enum LessonType {
   LECTURE = "lec",
   RECITATION = "rec",
 }
@@ -16,4 +16,9 @@ export interface RecordingTask extends Task {
   isLectureOrRecitation: LessonType;
   lessonDate?: string;
   duration: number;
+}
+
+export enum Screens {
+  TASKS = "tasks",
+  COURSES = "courses",
 }

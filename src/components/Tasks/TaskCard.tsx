@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import { useAppDispatch } from "../hooks/hooks";
-import { Task } from "../types/index";
-import { deleteTask, toggleTask } from "../store/slices/tasksSlice";
+import { useAppDispatch } from "../../hooks/hooks";
+import { Task } from "../../types/index";
+import { deleteTask, toggleTask } from "../../store/slices/tasksSlice";
 
 interface TaskCardProps {
   task: Task;
@@ -59,11 +59,11 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#edf888",
+    backgroundColor: "#211A45",
     padding: 14,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: "#000000",
+    borderColor: "#453A76",
     gap: 12,
   },
   checkbox: {
@@ -71,13 +71,13 @@ const styles = StyleSheet.create({
     height: 22,
     borderRadius: 6,
     borderWidth: 2,
-    borderColor: "#9CA3AF",
+    borderColor: "#7E75A6",
     justifyContent: "center",
     alignItems: "center",
   },
   checkboxChecked: {
-    backgroundColor: "#10B981",
-    borderColor: "#10B981",
+    backgroundColor: "#65D6E8",
+    borderColor: "#65D6E8",
   },
   checkmark: {
     color: "#FFFFFF",
@@ -92,11 +92,11 @@ const styles = StyleSheet.create({
   taskTitle: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#1F2937",
+    color: "#F5F3FF",
   },
   completedText: {
     textDecorationLine: "line-through",
-    color: "#9CA3AF",
+    color: "#9E96C2",
   },
   metaRow: {
     flexDirection: "row",
@@ -104,28 +104,28 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   badge: {
-    backgroundColor: "#EEF2F6",
+    backgroundColor: "#30285A",
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
   },
   badgeText: {
     fontSize: 12,
-    color: "#4B5563",
+    color: "#D2CDEE",
     fontWeight: "500",
     userSelect: "none",
   },
   dateBadge: {
-    backgroundColor: "#FEF3C7",
+    backgroundColor: "#4B3C2B",
   },
   dateBadgeText: {
-    color: "#B45309",
+    color: "#F5C96A",
   },
   deleteButton: {
     width: 28,
     height: 28,
     borderRadius: 6,
-    backgroundColor: "#FEE2E2",
+    backgroundColor: "#4A213E",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   deleteButtonText: {
-    color: "#EF4444",
+    color: "#FF8BA7",
     fontSize: 14,
     fontWeight: "bold",
     userSelect: "none",

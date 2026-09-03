@@ -7,11 +7,11 @@ import {
   FlatList,
   StyleSheet,
 } from "react-native";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import type { RootState } from "../store/state";
-import { Task } from "../types/index";
-import { createTask } from "../utils/tasks";
-import { addTask, deleteTask, toggleTask } from "../store/slices/tasksSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import type { RootState } from "../../store/state";
+import { Task } from "../../types/index";
+import { createTask } from "../../utils/tasks";
+import { addTask, deleteTask, toggleTask } from "../../store/slices/tasksSlice";
 import TaskCard from "./TaskCard";
 import TaskModal from "./TaskModal";
 
@@ -59,12 +59,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   addTaskButton: {
-    backgroundColor: "#f85050",
+    backgroundColor: "#65D6E8",
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: "#000000",
+    borderColor: "#65D6E8",
     justifyContent: "center",
     alignItems: "center",
     width: 130,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   addTaskButtonText: {
     fontWeight: "600",
     fontSize: 15,
-    color: "#000000",
+    color: "#100B2E",
     userSelect: "none",
   },
   listContent: {

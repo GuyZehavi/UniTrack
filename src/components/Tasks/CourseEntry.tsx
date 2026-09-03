@@ -31,20 +31,20 @@ const CourseEntry: React.FC<CourseEntryProps> = ({
 
 const styles = StyleSheet.create({
   courseChip: {
-    backgroundColor: "#F3F4F6",
+    backgroundColor: "#2A2352",
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: "#514681",
   },
   courseChipSelected: {
-    backgroundColor: "#2563EB",
-    borderColor: "#2563EB",
+    backgroundColor: "#65D6E8",
+    borderColor: "#65D6E8",
   },
   courseChipText: {
     fontSize: 13,
-    color: "#4B5563",
+    color: "#D2CDEE",
     fontWeight: "500",
     userSelect: "none",
   },

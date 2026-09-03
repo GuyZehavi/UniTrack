@@ -8,10 +8,10 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { addTask } from "../store/slices/tasksSlice";
-import { createTask } from "../utils/tasks";
-import { Task } from "../types";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { addTask } from "../../store/slices/tasksSlice";
+import { createTask } from "../../utils/tasks";
+import { Task } from "../../types";
 import CourseEntry from "./CourseEntry";
 
 interface TaskModalProps {
@@ -21,10 +21,8 @@ interface TaskModalProps {
 
 const TaskModal: React.FC<TaskModalProps> = ({ visible, onClose }) => {
   const [title, setTitle] = useState<string>("");
-  const [course, setCourse] = useState<string>("");
   const [dueDate, setDueDate] = useState<string>("");
   const [selectedCourse, setSelectedCourse] = useState<string>("");
-  const [newCourseInput, setNewCourseInput] = useState<string>("");
 
   const dispatch = useAppDispatch();
   const courses = useAppSelector((state) => state.courses.items);
@@ -34,8 +32,8 @@ const TaskModal: React.FC<TaskModalProps> = ({ visible, onClose }) => {
 
     const newTask: Task = createTask(
       Date.now(),
-      title.trim(),
       currentCourse.trim(),
+      title.trim(),
       {
         dueDate: dueDate.trim() || undefined,
       },
@@ -129,7 +127,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ visible, onClose }) => {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "#00000065",
+    backgroundColor: "#08051ACC",
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
@@ -137,17 +135,17 @@ const styles = StyleSheet.create({
   modalCard: {
     width: "100%",
     maxWidth: 420,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 16,
+    backgroundColor: "#211A45",
+    borderRadius: 14,
     padding: 20,
     gap: 16,
     elevation: 5,
-    boxShadow: "#000000",
+    boxShadow: "#05031680",
   },
   modalTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#1F2937",
+    color: "#F5F3FF",
     textAlign: "center",
     userSelect: "none",
   },
@@ -155,14 +153,14 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   input: {
-    backgroundColor: "#F9FAFB",
+    backgroundColor: "#171137",
     borderWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: "#514681",
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 10,
     fontSize: 15,
-    color: "#111827",
+    color: "#F5F3FF",
   },
   buttonsRow: {
     flexDirection: "row",
@@ -174,24 +172,24 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#D1D5DB",
+    borderColor: "#6B6294",
     alignItems: "center",
   },
   cancelButtonText: {
-    color: "#4B5563",
+    color: "#D2CDEE",
     fontSize: 15,
     fontWeight: "600",
     userSelect: "none",
   },
   saveButton: {
     flex: 1,
-    backgroundColor: "#2563EB",
+    backgroundColor: "#65D6E8",
     paddingVertical: 12,
     borderRadius: 10,
     alignItems: "center",
   },
   saveButtonText: {
-    color: "#FFFFFF",
+    color: "#100B2E",
     fontSize: 15,
     fontWeight: "600",
     userSelect: "none",
@@ -207,7 +205,7 @@ const styles = StyleSheet.create({
   sectionLabel: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#4B5563",
+    color: "#D2CDEE",
     userSelect: "none",
   },
 });
