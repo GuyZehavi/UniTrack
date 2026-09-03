@@ -7,6 +7,7 @@ export interface Task {
   id: number;
   isCompleted: boolean;
   course: string;
+  title: string;
   dueDate?: string;
   completeBy?: string;
 }

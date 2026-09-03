@@ -10,7 +10,10 @@ const addTask = (state: TasksState, action: PayloadAction<Task>): void => {
 };
 
 const deleteTask = (state: TasksState, action: PayloadAction<number>): void => {
-  state.items = state.items.filter((task) => task.id !== action.payload);
+  const index = state.items.findIndex((task) => task.id === action.payload);
+  if (index !== -1) {
+    state.items.splice(index, 1);
+  }
 };
 
 const toggleTask = (state: TasksState, action: PayloadAction<number>): void => {
