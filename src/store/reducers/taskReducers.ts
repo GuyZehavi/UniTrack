@@ -5,18 +5,18 @@ export interface TasksState {
   items: Task[];
 }
 
-const addTask = (state: TasksState, action: PayloadAction<Task>): void => {
+const addTask = (state: TasksState, action: PayloadAction<Task>) => {
   state.items.push(action.payload);
 };
 
-const deleteTask = (state: TasksState, action: PayloadAction<number>): void => {
+const deleteTask = (state: TasksState, action: PayloadAction<number>) => {
   const index = state.items.findIndex((task) => task.id === action.payload);
   if (index !== -1) {
     state.items.splice(index, 1);
   }
 };
 
-const toggleTask = (state: TasksState, action: PayloadAction<number>): void => {
+const toggleTask = (state: TasksState, action: PayloadAction<number>) => {
   const task = state.items.find((t) => t.id === action.payload);
   if (task) {
     task.isCompleted = !task.isCompleted;

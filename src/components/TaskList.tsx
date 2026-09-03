@@ -13,43 +13,32 @@ import { Task } from "../types/index";
 import { createTask } from "../utils/tasks";
 import { addTask, deleteTask, toggleTask } from "../store/slices/tasksSlice";
 import TaskCard from "./TaskCard";
+import TaskModal from "./TaskModal";
 
 const TaskList: React.FC = () => {
-  const [input, setInput] = useState<string>("");
-  const dispatch = useAppDispatch();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const tasks = useAppSelector((state) => state.tasks.items);
 
   const onAddTaskPress = () => {
-    if (!input.trim()) return; // Check if input is only whitespace
+    setIsModalOpen(true);
+  };
 
-    const newTask: Task = createTask(Date.now(), "course", input.trim(), {
-      dueDate: "123",
-    }); // PLACEHOLDERS
-
-    dispatch(addTask(newTask));
-    setInput("");
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputRow}>
-        <TextInput
-          style={styles.input}
-          placeholder="Insert Task"
-          value={input}
-          onChangeText={setInput}
-        ></TextInput>
-        <Pressable
-          style={({ pressed }) => [
-            styles.addTaskButton,
-            pressed && styles.addTaskButtonPressed,
-          ]}
-          onPress={onAddTaskPress}
-        >
-          <Text style={styles.addTaskButtonText}> Add Task </Text>
-        </Pressable>
-      </View>
+      <Pressable
+        style={({ pressed }) => [
+          styles.addTaskButton,
+          pressed && styles.addTaskButtonPressed,
+        ]}
+        onPress={onAddTaskPress}
+      >
+        <Text style={styles.addTaskButtonText}> Add Task </Text>
+      </Pressable>
 
       <FlatList
         data={tasks}
@@ -57,6 +46,8 @@ const TaskList: React.FC = () => {
         renderItem={({ item }) => <TaskCard task={item} />}
         contentContainerStyle={styles.listContent}
       ></FlatList>
+
+      <TaskModal visible={isModalOpen} onClose={closeModal}></TaskModal>
     </View>
   );
 };
@@ -67,23 +58,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  inputRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    marginBottom: 20,
-  },
-  input: {
-    flex: 1,
-    backgroundColor: "#affbfd",
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    borderRadius: 100,
-    borderWidth: 2,
-    borderColor: "#000000",
-    fontSize: 16,
-    color: "#111827",
-  },
   addTaskButton: {
     backgroundColor: "#f85050",
     paddingHorizontal: 16,
@@ -93,6 +67,9 @@ const styles = StyleSheet.create({
     borderColor: "#000000",
     justifyContent: "center",
     alignItems: "center",
+    width: 130,
+    alignSelf: "center",
+    marginBottom: 30,
   },
   addTaskButtonPressed: {
     opacity: 0.8,
