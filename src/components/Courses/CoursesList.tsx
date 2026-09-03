@@ -29,6 +29,7 @@ const CoursesList: React.FC = () => {
         <TextInput
           style={styles.input}
           placeholder="Course Name"
+          placeholderTextColor="#A5A1C8"
           value={input}
           onChangeText={setInput}
         ></TextInput>

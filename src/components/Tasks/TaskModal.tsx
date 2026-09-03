@@ -67,6 +67,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ visible, onClose }) => {
             <TextInput
               style={styles.input}
               placeholder="Task Title"
+              placeholderTextColor="#A5A1C8"
               value={title}
               onChangeText={setTitle}
             />
@@ -92,6 +93,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ visible, onClose }) => {
             <TextInput
               style={styles.input}
               placeholder="Due Date (e.g. 12/11/26)"
+              placeholderTextColor="#A5A1C8"
               value={dueDate}
               onChangeText={setDueDate}
             />
