@@ -4,13 +4,13 @@ export const createTask = (
   id: number,
   course: string,
   title: string,
-  overrides?: Partial<Task>,
+  completeBy: string,
 ): Task => {
   return {
     id: id,
     course: course,
     title: title,
     isCompleted: false,
-    ...overrides,
+    completeBy: completeBy,
   };
 };

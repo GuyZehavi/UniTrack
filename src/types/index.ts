@@ -8,8 +8,7 @@ export interface Task {
   isCompleted: boolean;
   course: string;
   title: string;
-  dueDate?: string;
-  completeBy?: string;
+  completeBy: string;
 }
 
 export interface RecordingTask extends Task {

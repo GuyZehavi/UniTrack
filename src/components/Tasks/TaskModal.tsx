@@ -13,30 +13,63 @@ import { addTask } from "../../store/slices/tasksSlice";
 import { createTask } from "../../utils/tasks";
 import { Task } from "../../types";
 import CourseEntry from "./CourseEntry";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 interface TaskModalProps {
   visible: boolean;
   onClose: () => void;
 }
 
+interface FormErrors {
+  title?: string;
+  course?: string;
+  date?: string;
+}
+
 const TaskModal: React.FC<TaskModalProps> = ({ visible, onClose }) => {
   const [title, setTitle] = useState<string>("");
-  const [dueDate, setDueDate] = useState<string>("");
+  const [completeBy, setCompleteBy] = useState<Date | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<string>("");
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const dispatch = useAppDispatch();
   const courses = useAppSelector((state) => state.courses.items);
 
+  const onDateChange = (event: any, selectedDate?: Date) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      setCompleteBy(selectedDate);
+      // Remove date error if it shows
+      if (errors.date) {
+        setErrors((prev) => ({ ...prev, date: undefined }));
+      }
+    }
+  };
+
   const handleSave = () => {
-    if (!title.trim()) return;
+    const currentErrors: FormErrors = {};
+
+    if (!title.trim()) {
+      currentErrors.title = "Must set title";
+    }
+    if (!selectedCourse.trim()) {
+      currentErrors.course = "Must choose course";
+    }
+    if (!completeBy) {
+      currentErrors.date = "Must set complete by date";
+    }
+    // If any error exists, stop without saving
+    if (Object.keys(currentErrors).length > 0) {
+      setErrors(currentErrors);
+      return;
+    }
 
     const newTask: Task = createTask(
       Date.now(),
       currentCourse.trim(),
       title.trim(),
-      {
-        dueDate: dueDate.trim() || undefined,
-      },
+      completeBy!.toLocaleDateString(),
     );
 
     dispatch(addTask(newTask));
@@ -47,7 +80,8 @@ const TaskModal: React.FC<TaskModalProps> = ({ visible, onClose }) => {
     onClose();
     setTitle("");
     setSelectedCourse("");
-    setDueDate("");
+    setErrors({});
+    setCompleteBy(null);
   };
 
   const currentCourse = selectedCourse;
@@ -64,41 +98,90 @@ const TaskModal: React.FC<TaskModalProps> = ({ visible, onClose }) => {
           <Text style={styles.modalTitle}>New Task</Text>
 
           <View style={styles.form}>
-            <TextInput
-              style={styles.input}
-              placeholder="Task Title"
-              placeholderTextColor="#A5A1C8"
-              value={title}
-              onChangeText={setTitle}
-            />
+            {/* Task title */}
+            <View>
+              {errors.title && (
+                <Text style={styles.errorText}>* {errors.title}</Text>
+              )}
+              <TextInput
+                style={[styles.input, errors.title && styles.inputError]}
+                placeholder="Task Title"
+                placeholderTextColor="#A5A1C8"
+                value={title}
+                onChangeText={(text) => {
+                  setTitle(text);
+                  if (errors.title) {
+                    setErrors((prev) => ({ ...prev, title: undefined }));
+                  }
+                }}
+              />
+            </View>
 
-            <Text style={styles.sectionLabel}>Choose Course:</Text>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.coursesRow}
-            >
-              {courses.map((c) => {
-                return (
-                  <CourseEntry
-                    key={c}
-                    course={c}
-                    isSelected={c === selectedCourse}
-                    onPress={() => setSelectedCourse(c)}
-                  />
-                );
-              })}
-            </ScrollView>
+            {/* Choose course */}
+            <View>
+              {errors.course && (
+                <Text style={styles.errorText}>* {errors.course}</Text>
+              )}
+              <Text style={styles.sectionLabel}>Choose Course:</Text>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.coursesRow}
+              >
+                {courses.map((c) => {
+                  return (
+                    <CourseEntry
+                      key={c}
+                      course={c}
+                      isSelected={c === selectedCourse}
+                      onPress={() => {
+                        setSelectedCourse(c);
+                        if (errors.course) {
+                          setErrors((prev) => ({ ...prev, course: undefined }));
+                        }
+                      }}
+                    />
+                  );
+                })}
+              </ScrollView>
+            </View>
 
-            <TextInput
-              style={styles.input}
-              placeholder="Due Date (e.g. 12/11/26)"
-              placeholderTextColor="#A5A1C8"
-              value={dueDate}
-              onChangeText={setDueDate}
-            />
+            {/* Pick date */}
+            <View>
+              {errors.date && (
+                <Text style={styles.errorText}>* {errors.date}</Text>
+              )}
+              <Pressable
+                style={({ pressed }) => [
+                  styles.datePickerButton,
+                  errors.date && styles.inputError,
+                  pressed && styles.datePickerButtonPressed,
+                ]}
+                onPress={() => setShowDatePicker(true)}
+              >
+                <Text style={styles.datePickerButtonText}>
+                  {completeBy
+                    ? `📅 Complete By: ${completeBy.toLocaleDateString()}`
+                    : "📅 Choose Due Date"}
+                </Text>
+              </Pressable>
+            </View>
           </View>
 
+          {showDatePicker && (
+            <DateTimePicker
+              value={completeBy || new Date()}
+              mode="date"
+              display="default"
+              onValueChange={onDateChange}
+              onDismiss={() => {
+                setCompleteBy(new Date());
+                setShowDatePicker(false);
+              }}
+            />
+          )}
+
+          {/* Cancel & Save buttons */}
           <View style={styles.buttonsRow}>
             <Pressable
               style={({ pressed }) => [
@@ -209,6 +292,36 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#D2CDEE",
     userSelect: "none",
+  },
+  datePickerButton: {
+    backgroundColor: "#1D1645",
+    borderWidth: 1,
+    borderColor: "#2E2469",
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  datePickerButtonPressed: {
+    opacity: 0.8,
+    borderColor: "#4DD0E1",
+  },
+  datePickerButtonText: {
+    color: "#E2E8F0",
+    fontSize: 15,
+    fontWeight: "500",
+    userSelect: "none",
+  },
+  inputError: {
+    borderColor: "#FF5C8A",
+  },
+  errorText: {
+    color: "#FF5C8A",
+    fontSize: 12,
+    fontWeight: "600",
+    marginBottom: 4,
+    textAlign: "left",
   },
 });
 

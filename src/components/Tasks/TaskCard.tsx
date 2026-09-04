@@ -32,10 +32,10 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
             <Text style={styles.badgeText}>{task.course}</Text>
           </View>
 
-          {task.dueDate ? (
+          {task.completeBy ? (
             <View style={[styles.badge, styles.dateBadge]}>
               <Text style={[styles.badgeText, styles.dateBadgeText]}>
-                🕒 {task.dueDate}
+                🕒 {task.completeBy}
               </Text>
             </View>
           ) : null}
