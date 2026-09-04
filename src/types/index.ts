@@ -1,9 +1,4 @@
-export enum LessonType {
-  LECTURE = "lec",
-  RECITATION = "rec",
-}
-
-export interface Task {
+export interface Assignment {
   id: number;
   isCompleted: boolean;
   course: string;
@@ -11,13 +6,7 @@ export interface Task {
   completeBy: string;
 }
 
-export interface RecordingTask extends Task {
-  isLectureOrRecitation: LessonType;
-  lessonDate?: string;
-  duration: number;
-}
-
 export enum Screens {
-  TASKS = "tasks",
+  ASSIGNMENTS = "assignments",
   COURSES = "courses",
 }

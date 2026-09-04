@@ -1,1 +1,1 @@
-export * from "./taskReducers";
+export * from "./assignmentReducers";

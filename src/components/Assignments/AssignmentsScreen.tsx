@@ -1,17 +1,17 @@
 import { Text, View, StyleSheet } from "react-native";
-import TaskList from "./TaskList";
+import AssignmentList from "./AssignmentList";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
-export default function CoursesScreen() {
+export default function AssignmentsScreen() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.screen}>
         <View style={styles.container}>
           <View style={styles.header}>
-            <Text style={styles.title}> Tasks List </Text>
+            <Text style={styles.title}> Assignments List </Text>
           </View>
 
-          <TaskList />
+          <AssignmentList />
         </View>
       </SafeAreaView>
     </SafeAreaProvider>

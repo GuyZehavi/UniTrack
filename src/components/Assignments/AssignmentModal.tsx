@@ -9,13 +9,13 @@ import {
   ScrollView,
 } from "react-native";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { addTask } from "../../store/slices/tasksSlice";
-import { createTask } from "../../utils/tasks";
-import { Task } from "../../types";
-import CourseEntry from "./CourseEntry";
+import { addAssignment } from "../../store/slices/assignmentsSlice";
+import { createAssignment } from "../../utils/assignments";
+import { Assignment } from "../../types";
+import CourseEntry from "../Courses/CourseEntry";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-interface TaskModalProps {
+interface AssignmentModalProps {
   visible: boolean;
   onClose: () => void;
 }
@@ -26,7 +26,7 @@ interface FormErrors {
   date?: string;
 }
 
-const TaskModal: React.FC<TaskModalProps> = ({ visible, onClose }) => {
+const AssignmentModal: React.FC<AssignmentModalProps> = ({ visible, onClose }) => {
   const [title, setTitle] = useState<string>("");
   const [completeBy, setCompleteBy] = useState<Date | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<string>("");
@@ -65,14 +65,14 @@ const TaskModal: React.FC<TaskModalProps> = ({ visible, onClose }) => {
       return;
     }
 
-    const newTask: Task = createTask(
+    const newAssignment: Assignment = createAssignment(
       Date.now(),
       currentCourse.trim(),
       title.trim(),
       completeBy!.toLocaleDateString(),
     );
 
-    dispatch(addTask(newTask));
+    dispatch(addAssignment(newAssignment));
     close();
   };
 
@@ -95,17 +95,17 @@ const TaskModal: React.FC<TaskModalProps> = ({ visible, onClose }) => {
     >
       <View style={styles.overlay}>
         <View style={styles.modalCard}>
-          <Text style={styles.modalTitle}>New Task</Text>
+          <Text style={styles.modalTitle}>New Assignment</Text>
 
           <View style={styles.form}>
-            {/* Task title */}
+            {/* Assignment title */}
             <View>
               {errors.title && (
                 <Text style={styles.errorText}>* {errors.title}</Text>
               )}
               <TextInput
                 style={[styles.input, errors.title && styles.inputError]}
-                placeholder="Task Title"
+                placeholder="Assignment Title"
                 placeholderTextColor="#A5A1C8"
                 value={title}
                 onChangeText={(text) => {
@@ -200,7 +200,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ visible, onClose }) => {
               ]}
               onPress={handleSave}
             >
-              <Text style={styles.saveButtonText}>Save Task</Text>
+              <Text style={styles.saveButtonText}>Save Assignment</Text>
             </Pressable>
           </View>
         </View>
@@ -325,4 +325,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TaskModal;
+export default AssignmentModal;

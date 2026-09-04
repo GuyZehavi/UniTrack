@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Text, View, StyleSheet, Pressable } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "../store/state";
-import TasksScreen from "./Tasks";
+import AssignmentsScreen from "./Assignments";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import CoursesScreen from "./Courses";
 import { Screens } from "../types";
 
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState<Screens>(Screens.TASKS);
+  const [currentScreen, setCurrentScreen] = useState<Screens>(
+    Screens.ASSIGNMENTS,
+  );
 
   return (
     <Provider store={store}>
@@ -18,17 +20,17 @@ export default function App() {
             <Pressable
               style={[
                 styles.tabButton,
-                currentScreen === Screens.TASKS && styles.activeTabButton,
+                currentScreen === Screens.ASSIGNMENTS && styles.activeTabButton,
               ]}
-              onPress={() => setCurrentScreen(Screens.TASKS)}
+              onPress={() => setCurrentScreen(Screens.ASSIGNMENTS)}
             >
               <Text
                 style={[
                   styles.tabText,
-                  currentScreen === Screens.TASKS && styles.activeTabText,
+                  currentScreen === Screens.ASSIGNMENTS && styles.activeTabText,
                 ]}
               >
-                Tasks
+                Assignments
               </Text>
             </Pressable>
 
@@ -51,8 +53,8 @@ export default function App() {
           </View>
 
           <View style={styles.contentContainer}>
-            {currentScreen === Screens.TASKS ? (
-              <TasksScreen />
+            {currentScreen === Screens.ASSIGNMENTS ? (
+              <AssignmentsScreen />
             ) : (
               <CoursesScreen />
             )}

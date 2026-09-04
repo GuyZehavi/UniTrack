@@ -1,11 +1,11 @@
-import { Task } from "../types";
+import { Assignment } from "../types";
 
-export const createTask = (
+export const createAssignment = (
   id: number,
   course: string,
   title: string,
   completeBy: string,
-): Task => {
+): Assignment => {
   return {
     id: id,
     course: course,

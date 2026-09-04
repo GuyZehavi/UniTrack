@@ -1,41 +1,50 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { useAppDispatch } from "../../hooks/hooks";
-import { Task } from "../../types/index";
-import { deleteTask, toggleTask } from "../../store/slices/tasksSlice";
+import { Assignment } from "../../types/index";
+import {
+  deleteAssignment,
+  toggleAssignment,
+} from "../../store/slices/assignmentsSlice";
 
-interface TaskCardProps {
-  task: Task;
+interface AssignmentCardProps {
+  assignment: Assignment;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
+const AssignmentCard: React.FC<AssignmentCardProps> = ({ assignment }) => {
   const dispatch = useAppDispatch();
 
   return (
     <View style={styles.card}>
       <Pressable
-        style={[styles.checkbox, task.isCompleted && styles.checkboxChecked]}
-        onPress={() => dispatch(toggleTask(task.id))}
+        style={[
+          styles.checkbox,
+          assignment.isCompleted && styles.checkboxChecked,
+        ]}
+        onPress={() => dispatch(toggleAssignment(assignment.id))}
       >
-        {task.isCompleted && <Text style={styles.checkmark}>✓</Text>}
+        {assignment.isCompleted && <Text style={styles.checkmark}>✓</Text>}
       </Pressable>
 
       <View style={styles.cardBody}>
         <Text
-          style={[styles.taskTitle, task.isCompleted && styles.completedText]}
+          style={[
+            styles.assignmentTitle,
+            assignment.isCompleted && styles.completedText,
+          ]}
         >
-          {task.title || task.course}
+          {assignment.title || assignment.course}
         </Text>
 
         <View style={styles.metaRow}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{task.course}</Text>
+            <Text style={styles.badgeText}>{assignment.course}</Text>
           </View>
 
-          {task.completeBy ? (
+          {assignment.completeBy ? (
             <View style={[styles.badge, styles.dateBadge]}>
               <Text style={[styles.badgeText, styles.dateBadgeText]}>
-                🕒 {task.completeBy}
+                🕒 {assignment.completeBy}
               </Text>
             </View>
           ) : null}
@@ -47,7 +56,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
           styles.deleteButton,
           pressed && styles.deleteButtonPressed,
         ]}
-        onPress={() => dispatch(deleteTask(task.id))}
+        onPress={() => dispatch(deleteAssignment(assignment.id))}
       >
         <Text style={styles.deleteButtonText}>✕</Text>
       </Pressable>
@@ -89,7 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 6,
   },
-  taskTitle: {
+  assignmentTitle: {
     fontSize: 16,
     fontWeight: "600",
     color: "#F5F3FF",
@@ -140,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TaskCard;
+export default AssignmentCard;

@@ -9,18 +9,22 @@ import {
 } from "react-native";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import type { RootState } from "../../store/state";
-import { Task } from "../../types/index";
-import { createTask } from "../../utils/tasks";
-import { addTask, deleteTask, toggleTask } from "../../store/slices/tasksSlice";
-import TaskCard from "./TaskCard";
-import TaskModal from "./TaskModal";
+import { Assignment } from "../../types/index";
+import { createAssignment } from "../../utils/assignments";
+import {
+  addAssignment,
+  deleteAssignment,
+  toggleAssignment,
+} from "../../store/slices/assignmentsSlice";
+import AssignmentCard from "./AssignmentCard";
+import AssignmentModal from "./AssignmentModal";
 
-const TaskList: React.FC = () => {
+const AssignmentList: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const tasks = useAppSelector((state) => state.tasks.items);
+  const assignments = useAppSelector((state) => state.assignments.items);
 
-  const onAddTaskPress = () => {
+  const onAddAssignmentPress = () => {
     setIsModalOpen(true);
   };
 
@@ -32,33 +36,33 @@ const TaskList: React.FC = () => {
     <View style={styles.container}>
       <Pressable
         style={({ pressed }) => [
-          styles.addTaskButton,
-          pressed && styles.addTaskButtonPressed,
+          styles.addAssignmentButton,
+          pressed && styles.addAssignmentButtonPressed,
         ]}
-        onPress={onAddTaskPress}
+        onPress={onAddAssignmentPress}
       >
-        <Text style={styles.addTaskButtonText}> Add Task </Text>
+        <Text style={styles.addAssignmentButtonText}> Add Assignment </Text>
       </Pressable>
 
       <FlatList
-        data={tasks}
+        data={assignments}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <TaskCard task={item} />}
+        renderItem={({ item }) => <AssignmentCard assignment={item} />}
         contentContainerStyle={styles.listContent}
       ></FlatList>
 
-      <TaskModal visible={isModalOpen} onClose={closeModal}></TaskModal>
+      <AssignmentModal visible={isModalOpen} onClose={closeModal}></AssignmentModal>
     </View>
   );
 };
 
-export default TaskList;
+export default AssignmentList;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  addTaskButton: {
+  addAssignmentButton: {
     backgroundColor: "#65D6E8",
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -71,10 +75,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 30,
   },
-  addTaskButtonPressed: {
+  addAssignmentButtonPressed: {
     opacity: 0.8,
   },
-  addTaskButtonText: {
+  addAssignmentButtonText: {
     fontWeight: "600",
     fontSize: 15,
     color: "#100B2E",
