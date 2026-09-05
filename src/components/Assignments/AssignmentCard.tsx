@@ -23,13 +23,11 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({ assignment }) => {
       onToggle={() => dispatch(toggleAssignment(assignment.id))}
       onDelete={() => dispatch(deleteAssignment(assignment.id))}
     >
-      {assignment.completeBy ? (
-        <View style={[styles.badge, styles.dateBadge]}>
-          <Text style={[styles.badgeText, styles.dateBadgeText]}>
-            🕒 {assignment.completeBy}
-          </Text>
-        </View>
-      ) : null}
+      <View style={[styles.badge, styles.dateBadge]}>
+        <Text style={[styles.badgeText, styles.dateBadgeText]}>
+          ⏱️ {assignment.completeBy}
+        </Text>
+      </View>
     </BaseCard>
   );
 };

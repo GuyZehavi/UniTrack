@@ -1,20 +1,19 @@
 import { PayloadAction } from "@reduxjs/toolkit";
+import type { Course } from "../../types";
 
 export interface CoursesState {
-  items: string[];
+  items: Course[];
 }
 
 const addCourse = (state: CoursesState, action: PayloadAction<string>) => {
   const trimmed = action.payload.trim();
-  if (!trimmed || state.items.includes(trimmed)) return;
+  if (!trimmed || state.items.some((course) => course.name === trimmed)) return;
 
-  state.items.push(trimmed);
+  state.items.push({ id: Date.now(), name: trimmed });
 };
 
-const deleteCourse = (state: CoursesState, action: PayloadAction<string>) => {
-  const index = state.items.findIndex(
-    (course) => course === action.payload.trim(),
-  );
+const deleteCourse = (state: CoursesState, action: PayloadAction<number>) => {
+  const index = state.items.findIndex((course) => course.id === action.payload);
   if (index !== -1) {
     state.items.splice(index, 1);
   }

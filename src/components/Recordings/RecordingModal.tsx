@@ -9,13 +9,14 @@ import {
   ScrollView,
 } from "react-native";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { addAssignment } from "../../store/slices/assignmentsSlice";
-import { createAssignment } from "../../utils/assignments";
-import { Assignment } from "../../types";
+import { createRecording } from "../../utils/recordings";
 import CourseEntry from "../Courses/CourseEntry";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Recording, LessonType } from "../../types";
+import { addRecording } from "../../store/slices/RecordingsSlice";
+import LessonTypeEntry from "./LessonTypeEntry";
 
-interface AssignmentModalProps {
+interface RecordingModalProps {
   visible: boolean;
   onClose: () => void;
 }
@@ -24,9 +25,11 @@ interface FormErrors {
   title?: string;
   course?: string;
   date?: string;
+  duration?: string;
+  type?: string;
 }
 
-const AssignmentModal: React.FC<AssignmentModalProps> = ({
+const AssignmentModal: React.FC<RecordingModalProps> = ({
   visible,
   onClose,
 }) => {
@@ -35,6 +38,9 @@ const AssignmentModal: React.FC<AssignmentModalProps> = ({
   const [selectedCourse, setSelectedCourse] = useState<string>("");
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [errors, setErrors] = useState<FormErrors>({});
+  const [selectedDuration, setSelectedDuration] = useState<number>(0);
+  const [selectedType, setSelectedType] = useState<LessonType | null>(null);
+  const [lessonDate, setLessonDate] = useState<Date | null>(null);
 
   const dispatch = useAppDispatch();
   const courses = useAppSelector((state) => state.courses.items);
@@ -62,20 +68,41 @@ const AssignmentModal: React.FC<AssignmentModalProps> = ({
     if (!completeBy) {
       currentErrors.date = "Must set complete by date";
     }
-    // If any error exists, stop without saving
+    if (!selectedDuration) {
+      currentErrors.duration = "Must set duration";
+    }
+    if (!selectedType) {
+      currentErrors.type = "Must choose lesson type";
+    }
     if (Object.keys(currentErrors).length > 0) {
+      // If any error exists, stop without saving
       setErrors(currentErrors);
       return;
     }
 
-    const newAssignment: Assignment = createAssignment(
-      Date.now(),
-      currentCourse.trim(),
-      title.trim(),
-      completeBy!.toLocaleDateString(),
-    );
+    let newRecording: Recording;
+    if (lessonDate) {
+      newRecording = createRecording(
+        Date.now(),
+        currentCourse.trim(),
+        title.trim(),
+        completeBy!.toLocaleDateString(),
+        selectedType!,
+        selectedDuration,
+        lessonDate.toLocaleDateString(),
+      );
+    } else {
+      newRecording = createRecording(
+        Date.now(),
+        currentCourse.trim(),
+        title.trim(),
+        completeBy!.toLocaleDateString(),
+        selectedType!,
+        selectedDuration,
+      );
+    }
 
-    dispatch(addAssignment(newAssignment));
+    dispatch(addRecording(newRecording));
     close();
   };
 
@@ -85,15 +112,18 @@ const AssignmentModal: React.FC<AssignmentModalProps> = ({
     setSelectedCourse("");
     setErrors({});
     setCompleteBy(null);
+    setSelectedDuration(0);
+    setSelectedType(null);
+    setLessonDate(null);
   };
 
   const currentCourse = selectedCourse;
-
-  const getTodayStart = () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return today;
-  };
+  const LESSON_TYPES: { type: LessonType; icon: string }[] = [
+    { type: LessonType.LECTURE, icon: "🤓" },
+    { type: LessonType.RECITATION, icon: "📝" },
+    { type: LessonType.LAB, icon: "🔬" },
+    { type: LessonType.REVIEW, icon: "💡" },
+  ];
 
   return (
     <Modal
@@ -104,17 +134,17 @@ const AssignmentModal: React.FC<AssignmentModalProps> = ({
     >
       <View style={styles.overlay}>
         <View style={styles.modalCard}>
-          <Text style={styles.modalTitle}>New Assignment</Text>
+          <Text style={styles.modalTitle}>New Recording</Text>
 
           <View style={styles.form}>
-            {/* Assignment title */}
+            {/* Recording title */}
             <View>
               {errors.title && (
                 <Text style={styles.errorText}>* {errors.title}</Text>
               )}
               <TextInput
                 style={[styles.input, errors.title && styles.inputError]}
-                placeholder="Assignment Title"
+                placeholder="Recording Title"
                 placeholderTextColor="#A5A1C8"
                 value={title}
                 onChangeText={(text) => {
@@ -155,6 +185,38 @@ const AssignmentModal: React.FC<AssignmentModalProps> = ({
               </ScrollView>
             </View>
 
+            {/* Choose lesson type */}
+            <View style={styles.sectionContainer}>
+              <View style={styles.sectionHeader}>
+                <Text style={styles.sectionLabel}>Choose Lesson Type:</Text>
+                {errors.type && (
+                  <Text style={styles.errorTextInline}>* {errors.type}</Text>
+                )}
+              </View>
+
+              <View
+                style={[
+                  styles.lessonTypesContainer,
+                  errors.type && styles.lessonTypesContainerError,
+                ]}
+              >
+                {LESSON_TYPES.map(({ type, icon }) => (
+                  <LessonTypeEntry
+                    key={type}
+                    type={type}
+                    icon={icon}
+                    isSelected={selectedType === type}
+                    onPress={(selected) => {
+                      setSelectedType(selected);
+                      if (errors.type) {
+                        setErrors((prev) => ({ ...prev, type: undefined }));
+                      }
+                    }}
+                  />
+                ))}
+              </View>
+            </View>
+
             {/* Pick date */}
             <View>
               {errors.date && (
@@ -182,7 +244,6 @@ const AssignmentModal: React.FC<AssignmentModalProps> = ({
               value={completeBy || new Date()}
               mode="date"
               display="default"
-              minimumDate={getTodayStart()}
               onValueChange={onDateChange}
               onDismiss={() => {
                 setCompleteBy(new Date());
@@ -297,12 +358,6 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingVertical: 4,
   },
-  sectionLabel: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#D2CDEE",
-    userSelect: "none",
-  },
   datePickerButton: {
     backgroundColor: "#1D1645",
     borderWidth: 1,
@@ -332,6 +387,40 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: 4,
     textAlign: "left",
+  },
+  lessonTypesContainter: {
+    flexDirection: "row",
+  },
+  sectionContainer: {
+    gap: 8,
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  sectionLabel: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#D2CDEE",
+    userSelect: "none",
+  },
+  errorTextInline: {
+    color: "#FF5C8A",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  lessonTypesContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    padding: 4,
+    borderRadius: 12,
+  },
+  lessonTypesContainerError: {
+    borderWidth: 1,
+    borderColor: "#FF5C8A",
+    backgroundColor: "#31142B40",
   },
 });
 

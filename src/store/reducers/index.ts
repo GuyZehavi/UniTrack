@@ -1,1 +1,2 @@
-export * from "./assignmentReducers";
+export * from "./entityReducers";
+export * from "./courseReducers";

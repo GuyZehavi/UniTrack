@@ -7,8 +7,10 @@ export interface Assignment {
 }
 
 export enum LessonType {
-  LECTURE = "lec",
-  RECITATION = "rec",
+  LECTURE = "Lecture",
+  RECITATION = "Recitation",
+  LAB = "Lab",
+  REVIEW = "Review",
 }
 
 export interface Recording extends Assignment {
@@ -21,4 +23,10 @@ export enum Screens {
   ASSIGNMENTS = "assignments",
   COURSES = "courses",
   RECORDINGS = "recordings",
+}
+
+export interface Course {
+  id: number;
+  name: string;
+  color?: string;
 }

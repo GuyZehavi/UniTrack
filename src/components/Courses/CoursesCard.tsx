@@ -2,9 +2,10 @@ import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { useAppDispatch } from "../../hooks/hooks";
 import { deleteCourse } from "../../store/slices/coursesSlice";
+import type { Course } from "../../types";
 
 interface CourseCardProps {
-  course: string;
+  course: Course;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
@@ -13,7 +14,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   return (
     <View style={styles.card}>
       <View style={styles.cardBody}>
-        <Text style={styles.courseName}>{course}</Text>
+        <Text style={styles.courseName}>{course.name}</Text>
       </View>
 
       <Pressable
@@ -21,7 +22,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           styles.deleteButton,
           pressed && styles.deleteButtonPressed,
         ]}
-        onPress={() => dispatch(deleteCourse(course))}
+        onPress={() => dispatch(deleteCourse(course.id))}
       >
         <Text style={styles.deleteButtonText}>✕</Text>
       </Pressable>

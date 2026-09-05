@@ -1,15 +1,10 @@
 import { useState } from "react";
-import {
-  Text,
-  View,
-  TextInput,
-  FlatList,
-  StyleSheet,
-} from "react-native";
+import { Text, View, TextInput, StyleSheet } from "react-native";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import CourseCard from "./CoursesCard";
 import { addCourse } from "../../store/slices/coursesSlice";
 import { AddButton, BaseList } from "../common";
+import type { Course } from "../../types";
 
 const CoursesList: React.FC = () => {
   const [input, setInput] = useState<string>("");
@@ -37,14 +32,10 @@ const CoursesList: React.FC = () => {
         <AddButton text="Add Course" onPress={onAddCoursePress}></AddButton>
       </View>
 
-      <BaseList> />
-
-      <FlatList
+      <BaseList<Course>
         data={courses}
-        keyExtractor={(item) => item}
-        renderItem={({ item }) => <CourseCard course={item} />}
-        contentContainerStyle={styles.listContent}
-      ></FlatList>
+        renderItem={(c) => <CourseCard course={c} />}
+      />
     </View>
   );
 };
@@ -62,11 +53,8 @@ const styles = StyleSheet.create({
     gap: 10,
     marginBottom: 16,
   },
-  listContent: {
-    gap: 7,
-    paddingBottom: 24,
-  },
   input: {
+    flex: 1,
     backgroundColor: "#171137",
     borderWidth: 1,
     borderColor: "#514681",

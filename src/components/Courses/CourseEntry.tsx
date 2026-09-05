@@ -1,9 +1,10 @@
 import type React from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
+import type { Course } from "../../types";
 
 interface CourseEntryProps {
   isSelected: boolean;
-  course: string;
+  course: Course;
   onPress: () => void;
 }
 
@@ -23,7 +24,7 @@ const CourseEntry: React.FC<CourseEntryProps> = ({
           isSelected && styles.courseChipTextSelected,
         ]}
       >
-        {course}
+        {course.name}
       </Text>
     </Pressable>
   );
