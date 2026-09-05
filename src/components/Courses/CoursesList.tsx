@@ -3,13 +3,13 @@ import {
   Text,
   View,
   TextInput,
-  Pressable,
   FlatList,
   StyleSheet,
 } from "react-native";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import CourseCard from "./CoursesCard";
 import { addCourse } from "../../store/slices/coursesSlice";
+import { AddButton, BaseList } from "../common";
 
 const CoursesList: React.FC = () => {
   const [input, setInput] = useState<string>("");
@@ -34,16 +34,10 @@ const CoursesList: React.FC = () => {
           onChangeText={setInput}
         ></TextInput>
 
-        <Pressable
-          style={({ pressed }) => [
-            styles.addCourseButton,
-            pressed && styles.addCourseButtonPressed,
-          ]}
-          onPress={onAddCoursePress}
-        >
-          <Text style={styles.addCourseButtonText}> Add Course </Text>
-        </Pressable>
+        <AddButton text="Add Course" onPress={onAddCoursePress}></AddButton>
       </View>
+
+      <BaseList> />
 
       <FlatList
         data={courses}
@@ -67,26 +61,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 10,
     marginBottom: 16,
-  },
-  addCourseButton: {
-    backgroundColor: "#65D6E8",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: "#65D6E8",
-    justifyContent: "center",
-    alignItems: "center",
-    width: 130,
-  },
-  addCourseButtonPressed: {
-    opacity: 0.75,
-  },
-  addCourseButtonText: {
-    fontWeight: "600",
-    fontSize: 15,
-    color: "#100B2E",
-    userSelect: "none",
   },
   listContent: {
     gap: 7,

@@ -1,23 +1,15 @@
-import { useState, type JSX } from "react";
+import { useState } from "react";
 import {
   Text,
   View,
-  TextInput,
   Pressable,
   FlatList,
   StyleSheet,
 } from "react-native";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import type { RootState } from "../../store/state";
-import { Assignment } from "../../types/index";
-import { createAssignment } from "../../utils/assignments";
-import {
-  addAssignment,
-  deleteAssignment,
-  toggleAssignment,
-} from "../../store/slices/assignmentsSlice";
+import { useAppSelector } from "../../hooks/hooks";
 import AssignmentCard from "./AssignmentCard";
 import AssignmentModal from "./AssignmentModal";
+import AddButton from "../common/AddButton";
 
 const AssignmentList: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -34,15 +26,7 @@ const AssignmentList: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Pressable
-        style={({ pressed }) => [
-          styles.addAssignmentButton,
-          pressed && styles.addAssignmentButtonPressed,
-        ]}
-        onPress={onAddAssignmentPress}
-      >
-        <Text style={styles.addAssignmentButtonText}> Add Assignment </Text>
-      </Pressable>
+      <AddButton text="Add Assignment" onPress={onAddAssignmentPress}></AddButton>
 
       <FlatList
         data={assignments}
@@ -61,28 +45,6 @@ export default AssignmentList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  addAssignmentButton: {
-    backgroundColor: "#65D6E8",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: "#65D6E8",
-    justifyContent: "center",
-    alignItems: "center",
-    width: 130,
-    alignSelf: "center",
-    marginBottom: 30,
-  },
-  addAssignmentButtonPressed: {
-    opacity: 0.8,
-  },
-  addAssignmentButtonText: {
-    fontWeight: "600",
-    fontSize: 15,
-    color: "#100B2E",
-    userSelect: "none",
   },
   listContent: {
     gap: 7,
