@@ -35,6 +35,7 @@ const CoursesList: React.FC = () => {
       <BaseList<Course>
         data={courses}
         renderItem={(c) => <CourseCard course={c} />}
+        emptyMessage="No Courses Yet"
       />
     </View>
   );

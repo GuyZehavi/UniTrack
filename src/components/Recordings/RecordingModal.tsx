@@ -15,6 +15,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { Recording, LessonType } from "../../types";
 import { addRecording } from "../../store/slices/RecordingsSlice";
 import LessonTypeEntry from "./LessonTypeEntry";
+import DurationPicker from "./DurationPicker";
 
 interface RecordingModalProps {
   visible: boolean;
@@ -29,14 +30,16 @@ interface FormErrors {
   type?: string;
 }
 
-const AssignmentModal: React.FC<RecordingModalProps> = ({
+type ActivePicker = "completeBy" | "lesson" | null;
+
+const RecordingModal: React.FC<RecordingModalProps> = ({
   visible,
   onClose,
 }) => {
   const [title, setTitle] = useState<string>("");
   const [completeBy, setCompleteBy] = useState<Date | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<string>("");
-  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+  const [activePicker, setActivePicker] = useState<ActivePicker>(null);
   const [errors, setErrors] = useState<FormErrors>({});
   const [selectedDuration, setSelectedDuration] = useState<number>(0);
   const [selectedType, setSelectedType] = useState<LessonType | null>(null);
@@ -46,12 +49,17 @@ const AssignmentModal: React.FC<RecordingModalProps> = ({
   const courses = useAppSelector((state) => state.courses.items);
 
   const onDateChange = (event: any, selectedDate?: Date) => {
-    setShowDatePicker(false);
+    const picker = activePicker;
+    setActivePicker(null);
     if (selectedDate) {
-      setCompleteBy(selectedDate);
-      // Remove date error if it shows
-      if (errors.date) {
-        setErrors((prev) => ({ ...prev, date: undefined }));
+      if (picker == "completeBy") {
+        setCompleteBy(selectedDate);
+        // Remove date error if it shows
+        if (errors.date) {
+          setErrors((prev) => ({ ...prev, date: undefined }));
+        }
+      } else if (picker === "lesson") {
+        setLessonDate(selectedDate);
       }
     }
   };
@@ -110,6 +118,7 @@ const AssignmentModal: React.FC<RecordingModalProps> = ({
     onClose();
     setTitle("");
     setSelectedCourse("");
+    setActivePicker(null);
     setErrors({});
     setCompleteBy(null);
     setSelectedDuration(0);
@@ -124,6 +133,12 @@ const AssignmentModal: React.FC<RecordingModalProps> = ({
     { type: LessonType.LAB, icon: "🔬" },
     { type: LessonType.REVIEW, icon: "💡" },
   ];
+
+  const getTodayStart = () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today;
+  };
 
   return (
     <Modal
@@ -217,7 +232,7 @@ const AssignmentModal: React.FC<RecordingModalProps> = ({
               </View>
             </View>
 
-            {/* Pick date */}
+            {/* Pick complete by date */}
             <View>
               {errors.date && (
                 <Text style={styles.errorText}>* {errors.date}</Text>
@@ -228,7 +243,7 @@ const AssignmentModal: React.FC<RecordingModalProps> = ({
                   errors.date && styles.inputError,
                   pressed && styles.datePickerButtonPressed,
                 ]}
-                onPress={() => setShowDatePicker(true)}
+                onPress={() => setActivePicker("completeBy")}
               >
                 <Text style={styles.datePickerButtonText}>
                   {completeBy
@@ -237,18 +252,52 @@ const AssignmentModal: React.FC<RecordingModalProps> = ({
                 </Text>
               </Pressable>
             </View>
+
+            {/* Choose duration */}
+            <DurationPicker
+              selectedDuration={selectedDuration}
+              hasError={!!errors.duration}
+              onValueChange={(value) => {
+                setSelectedDuration(value);
+                if (errors.duration) {
+                  setErrors((prev) => ({ ...prev, duration: undefined }));
+                }
+              }}
+            />
+
+            {/* Pick lesson date (optional) */}
+            <View>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.datePickerButton,
+                  pressed && styles.datePickerButtonPressed,
+                ]}
+                onPress={() => setActivePicker("lesson")}
+              >
+                <Text style={styles.datePickerButtonText}>
+                  {lessonDate
+                    ? `📅 Lesson Date: ${lessonDate.toLocaleDateString()}`
+                    : "📅 Choose Lesson Date"}
+                </Text>
+              </Pressable>
+            </View>
           </View>
 
-          {showDatePicker && (
+          {activePicker && (
             <DateTimePicker
-              value={completeBy || new Date()}
+              value={
+                activePicker === "completeBy"
+                  ? completeBy || getTodayStart()
+                  : lessonDate || new Date()
+              }
               mode="date"
               display="default"
+              minimumDate={
+                activePicker === "completeBy" ? getTodayStart() : undefined
+              }
+              maximumDate={activePicker === "lesson" ? new Date() : undefined}
               onValueChange={onDateChange}
-              onDismiss={() => {
-                setCompleteBy(new Date());
-                setShowDatePicker(false);
-              }}
+              onDismiss={() => setActivePicker(null)}
             />
           )}
 
@@ -271,7 +320,7 @@ const AssignmentModal: React.FC<RecordingModalProps> = ({
               ]}
               onPress={handleSave}
             >
-              <Text style={styles.saveButtonText}>Save Assignment</Text>
+              <Text style={styles.saveButtonText}>Save Recording</Text>
             </Pressable>
           </View>
         </View>
@@ -388,9 +437,6 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     textAlign: "left",
   },
-  lessonTypesContainter: {
-    flexDirection: "row",
-  },
   sectionContainer: {
     gap: 8,
   },
@@ -424,4 +470,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AssignmentModal;
+export default RecordingModal;

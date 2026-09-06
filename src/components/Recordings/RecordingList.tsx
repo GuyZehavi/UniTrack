@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { useAppSelector } from "../../hooks/hooks";
-import AssignmentCard from "./AssignmentCard";
-import AssignmentModal from "./AssignmentModal";
 import AddButton from "../common/AddButton";
 import { BaseList } from "../common";
+import RecordingCard from "./RecordingCard";
+import RecordingModal from "./RecordingModal";
 
-const AssignmentList: React.FC = () => {
+const RecordingList: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const assignments = useAppSelector((state) => state.assignments.items);
+  const recordings = useAppSelector((state) => state.recordings.items);
 
   const onAddPress = () => {
     setIsModalOpen(true);
@@ -21,27 +21,23 @@ const AssignmentList: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <AddButton text="Add Assignment" onPress={onAddPress} />
+      <AddButton text="Add Recording" onPress={onAddPress} />
 
       <BaseList
-        data={assignments}
-        renderItem={(item) => <AssignmentCard assignment={item} />}
-        emptyMessage="No Assignments Yet"
+        data={recordings}
+        renderItem={(item) => <RecordingCard recording={item} />}
+        emptyMessage="No Recordings Yet"
       />
 
-      <AssignmentModal visible={isModalOpen} onClose={closeModal} />
+      <RecordingModal visible={isModalOpen} onClose={closeModal} />
     </View>
   );
 };
 
-export default AssignmentList;
+export default RecordingList;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  listContent: {
-    gap: 7,
-    paddingBottom: 24,
   },
 });

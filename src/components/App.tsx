@@ -6,11 +6,25 @@ import AssignmentsScreen from "./Assignments";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import CoursesScreen from "./Courses";
 import { Screens } from "../types";
+import RecordingsScreen from "./Recordings/RecordingsScreen";
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screens>(
     Screens.ASSIGNMENTS,
   );
+
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case Screens.ASSIGNMENTS:
+        return <AssignmentsScreen />;
+      case Screens.COURSES:
+        return <CoursesScreen />;
+      case Screens.RECORDINGS:
+        return <RecordingsScreen />;
+      default:
+        return <AssignmentsScreen />;
+    }
+  };
 
   return (
     <Provider store={store}>
@@ -50,15 +64,26 @@ export default function App() {
                 Courses
               </Text>
             </Pressable>
+
+            <Pressable
+              style={[
+                styles.tabButton,
+                currentScreen === Screens.RECORDINGS && styles.activeTabButton,
+              ]}
+              onPress={() => setCurrentScreen(Screens.RECORDINGS)}
+            >
+              <Text
+                style={[
+                  styles.tabText,
+                  currentScreen === Screens.RECORDINGS && styles.activeTabText,
+                ]}
+              >
+                Recordings
+              </Text>
+            </Pressable>
           </View>
 
-          <View style={styles.contentContainer}>
-            {currentScreen === Screens.ASSIGNMENTS ? (
-              <AssignmentsScreen />
-            ) : (
-              <CoursesScreen />
-            )}
-          </View>
+          <View style={styles.contentContainer}>{renderScreen()}</View>
         </SafeAreaView>
       </SafeAreaProvider>
     </Provider>

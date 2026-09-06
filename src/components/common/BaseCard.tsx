@@ -33,7 +33,7 @@ const BaseCard: React.FC<BaseCardProps> = ({
 
         <View style={styles.metaRow}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{course}</Text>
+            <Text style={styles.badgeText}>Course: {course}</Text>
           </View>
           {children}
         </View>

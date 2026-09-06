@@ -31,20 +31,20 @@ const RecordingCard: React.FC<RecordingCardProps> = ({ recording }) => {
 
       <View style={[styles.badge, styles.durationBadge]}>
         <Text style={[styles.badgeText, styles.durationBadgeText]}>
-          🕒 {recording.duration}
+          🕒 {recording.duration} Hours
         </Text>
       </View>
 
       <View style={[styles.badge, styles.completeByBadge]}>
         <Text style={[styles.badgeText, styles.completeByBadgeText]}>
-          ⏱️ {recording.completeBy}
+          ⏱️ Complete By: {recording.completeBy}
         </Text>
       </View>
 
       {recording.lessonDate ? (
         <View style={[styles.badge, styles.lessonDateBadge]}>
           <Text style={[styles.badgeText, styles.lessonDateBadgeText]}>
-            📅 {recording.lessonDate}
+            📅 Original Lesson Date: {recording.lessonDate}
           </Text>
         </View>
       ) : null}
