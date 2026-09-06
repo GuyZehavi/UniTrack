@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Text, View, TextInput, StyleSheet } from "react-native";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import CourseCard from "./CoursesCard";
 import { addCourse } from "../../store/slices/coursesSlice";
 import { AddButton, BaseList } from "../common";

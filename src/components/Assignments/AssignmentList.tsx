@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppSelector } from "../../hooks";
 import AssignmentCard from "./AssignmentCard";
 import AssignmentModal from "./AssignmentModal";
 import AddButton from "../common/AddButton";

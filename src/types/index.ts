@@ -23,6 +23,7 @@ export enum Screens {
   ASSIGNMENTS = "assignments",
   COURSES = "courses",
   RECORDINGS = "recordings",
+  HOME = "home",
 }
 
 export interface Course {

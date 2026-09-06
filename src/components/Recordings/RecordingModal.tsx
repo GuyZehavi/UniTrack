@@ -8,7 +8,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { createRecording } from "../../utils/recordings";
 import CourseEntry from "../Courses/CourseEntry";
 import DateTimePicker from "@react-native-community/datetimepicker";

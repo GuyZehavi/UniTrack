@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppSelector } from "../../hooks";
 import AddButton from "../common/AddButton";
 import { BaseList } from "../common";
 import RecordingCard from "./RecordingCard";

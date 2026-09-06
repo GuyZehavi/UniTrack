@@ -8,7 +8,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { addAssignment } from "../../store/slices/assignmentsSlice";
 import { createAssignment } from "../../utils/assignments";
 import { Assignment } from "../../types";
