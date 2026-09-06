@@ -1,13 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Pressable,
-  Dimensions,
-  Animated,
-  Easing,
-} from "react-native";
+import { Text, View, StyleSheet, Pressable, Dimensions } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "./src/store/state";
 import { Screens } from "./src/types";
@@ -17,6 +9,13 @@ import AssignmentsScreen from "./src/components/Assignments";
 import CoursesScreen from "./src/components/Courses";
 import RecordingsScreen from "./src/components/Recordings/RecordingsScreen";
 import HomeScreen from "./src/components/Home/HomeScreen";
+import { NavSidebar } from "./src/components/common/NavSidebar";
+import {
+  Easing,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
 
 const { width } = Dimensions.get("window");
 const DRAWER_WIDTH = Math.min(width * 0.75, 300);
@@ -45,38 +44,56 @@ export default function App() {
     }
   };
 
-  const slideAnimation = useRef(new Animated.Value(-DRAWER_WIDTH)).current;
+  const slideAnimation = useSharedValue(-DRAWER_WIDTH);
+  const backdropAnimation = useSharedValue(0);
 
   const openSideBar = useCallback(() => {
     setIsOpen(true);
-    Animated.spring(slideAnimation, {
-      toValue: 0,
-      tension: 65,
-      friction: 11,
-      useNativeDriver: true,
-    }).start();
-  }, [slideAnimation]);
+    slideAnimation.value = withSpring(0, {
+      damping: 18,
+      stiffness: 140,
+      mass: 0.8,
+    });
+    backdropAnimation.value = withTiming(1, {
+      duration: 180,
+    });
+  }, [slideAnimation, backdropAnimation]);
 
   const closeSideBar = useCallback(
     (callback?: () => void) => {
-      Animated.timing(slideAnimation, {
-        toValue: -DRAWER_WIDTH,
-        duration: 160,
-        easing: Easing.in(Easing.ease),
-        useNativeDriver: true,
-      }).start(() => {
+      const DURATION = 170;
+
+      slideAnimation.value = withTiming(-DRAWER_WIDTH, {
+        duration: DURATION,
+        easing: Easing.ease,
+      });
+
+      backdropAnimation.value = withTiming(0, {
+        duration: DURATION,
+        easing: Easing.ease,
+      });
+
+      setTimeout(() => {
         setIsOpen(false);
         if (callback) {
           callback();
         }
-      });
+      }, DURATION);
     },
-    [slideAnimation],
+    [slideAnimation, backdropAnimation],
   );
 
-  const selectScreen = (screen: Screens) => {
-    closeSideBar(() => setCurrentScreen(screen));
-  };
+  const selectScreen = useCallback(
+    (screen: Screens) => {
+      closeSideBar();
+      if (screen !== currentScreen) {
+        setTimeout(() => {
+          setCurrentScreen(screen);
+        }, 50);
+      }
+    },
+    [closeSideBar, currentScreen],
+  );
 
   const getScreenTitle = () => {
     switch (currentScreen) {
@@ -105,48 +122,16 @@ export default function App() {
 
           <View style={styles.contentContainer}>{renderScreen()}</View>
 
-          {isOpen && (
-            <Pressable style={styles.backdrop} onPress={() => closeSideBar()} />
-          )}
-
-          <Animated.View
-            pointerEvents={isOpen ? "auto" : "none"}
-            style={[
-              styles.drawer,
-              {
-                width: DRAWER_WIDTH,
-                transform: [{ translateX: slideAnimation }],
-              },
-            ]}
-          >
-            <View style={styles.drawerHeader}>
-              <Text style={styles.drawerTitle}>UniTrack</Text>
-              <Text style={styles.drawerSubtitle}>Menu</Text>
-            </View>
-
-            <View style={styles.menuItems}>
-              {NAV_ITEMS.map(({ screen, label, icon }) => {
-                const isActive = currentScreen === screen;
-                return (
-                  <Pressable
-                    key={screen}
-                    style={[styles.menuItem, isActive && styles.menuItemActive]}
-                    onPress={() => selectScreen(screen)}
-                  >
-                    <Text style={styles.menuItemIcon}>{icon}</Text>
-                    <Text
-                      style={[
-                        styles.menuItemText,
-                        isActive && styles.menuItemTextActive,
-                      ]}
-                    >
-                      {label}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-            </View>
-          </Animated.View>
+          <NavSidebar
+            isOpen={isOpen}
+            slideAnimation={slideAnimation}
+            backdropAnimation={backdropAnimation}
+            drawerWidth={DRAWER_WIDTH}
+            currentScreen={currentScreen}
+            navItems={NAV_ITEMS}
+            onClose={closeSideBar}
+            onSelect={selectScreen}
+          />
         </SafeAreaView>
       </SafeAreaProvider>
     </Provider>
