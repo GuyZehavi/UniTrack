@@ -21,8 +21,14 @@ const LessonTypeEntry: React.FC<LessonTypeEntryProps> = ({
       style={[styles.chip, isSelected && styles.selectedChip]}
       onPress={() => onPress(type)}
     >
-      <Text style={styles.icon}>{icon}</Text>
-      <Text style={[styles.text, isSelected && styles.selectedText]}>
+      <Text style={styles.icon} numberOfLines={1}>
+        {icon}
+      </Text>
+      <Text
+        style={[styles.text, isSelected && styles.selectedText]}
+        numberOfLines={1}
+        ellipsizeMode="tail"
+      >
         {type}
       </Text>
     </TouchableOpacity>
@@ -54,6 +60,7 @@ const styles = StyleSheet.create({
     color: "#A5A1C8",
     fontSize: 13,
     fontWeight: "500",
+    flexShrink: 1,
   },
   selectedText: {
     color: "#F5F3FF",

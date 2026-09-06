@@ -1,22 +1,24 @@
-import React from 'react';
-import { Text, View, Pressable, StyleSheet } from 'react-native';
+import React from "react";
+import { Text, View, Pressable, StyleSheet } from "react-native";
 
 interface AddButtonProps {
-    text: string;
-    onPress: () => void;
+  text: string;
+  onPress: () => void;
 }
 
 const AddButton: React.FC<AddButtonProps> = ({ text, onPress }) => {
-    return (
-      <Pressable
-        style={({ pressed }) => [
-          styles.addButton,
-          pressed && styles.addButtonPressed,
-        ]}
-        onPress={onPress}
-      >
-        <Text style={styles.addButtonText}> {text} </Text>
-      </Pressable>
+  return (
+    <Pressable
+      style={({ pressed }) => [
+        styles.addButton,
+        pressed && styles.addButtonPressed,
+      ]}
+      onPress={onPress}
+    >
+      <Text style={styles.addButtonText} numberOfLines={1} ellipsizeMode="tail">
+        {text}
+      </Text>
+    </Pressable>
   );
 };
 
@@ -35,6 +37,7 @@ const styles = StyleSheet.create({
     width: 130,
     alignSelf: "center",
     marginBottom: 30,
+    minHeight: 44,
   },
   addButtonPressed: {
     opacity: 0.8,
@@ -44,4 +47,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#100B2E",
     userSelect: "none",
-  }});
+    flexShrink: 1,
+    textAlign: "center",
+  },
+});

@@ -23,6 +23,8 @@ const CourseEntry: React.FC<CourseEntryProps> = ({
           styles.courseChipText,
           isSelected && styles.courseChipTextSelected,
         ]}
+        numberOfLines={1}
+        ellipsizeMode="tail"
       >
         {course.name}
       </Text>
@@ -32,6 +34,8 @@ const CourseEntry: React.FC<CourseEntryProps> = ({
 
 const styles = StyleSheet.create({
   courseChip: {
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#2A2352",
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -48,6 +52,8 @@ const styles = StyleSheet.create({
     color: "#D2CDEE",
     fontWeight: "500",
     userSelect: "none",
+    maxWidth: 180,
+    flexShrink: 1,
   },
   courseChipTextSelected: {
     color: "#FFFFFF",

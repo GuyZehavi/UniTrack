@@ -25,7 +25,11 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({ assignment }) => {
       onDelete={() => dispatch(deleteAssignment(assignment.id))}
     >
       <View style={[styles.badge, styles.dateBadge]}>
-        <Text style={[styles.badgeText, styles.dateBadgeText]}>
+        <Text
+          style={[styles.badgeText, styles.dateBadgeText]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           ⏱️ {formatDateString(assignment.completeBy)}
         </Text>
       </View>

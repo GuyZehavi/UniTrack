@@ -56,8 +56,12 @@ export const NavSidebar = memo(
           style={[styles.drawer, { width: drawerWidth }, drawerAnimatedStyle]}
         >
           <View style={styles.drawerHeader}>
-            <Text style={styles.drawerTitle}>UniTrack</Text>
-            <Text style={styles.drawerSubtitle}>Menu</Text>
+            <Text style={styles.drawerTitle} numberOfLines={1}>
+              UniTrack
+            </Text>
+            <Text style={styles.drawerSubtitle} numberOfLines={1}>
+              Menu
+            </Text>
           </View>
 
           <View style={styles.menuItems}>
@@ -69,12 +73,16 @@ export const NavSidebar = memo(
                   style={[styles.menuItem, isActive && styles.menuItemActive]}
                   onPress={() => onSelect(screen)}
                 >
-                  <Text style={styles.menuItemIcon}>{icon}</Text>
+                  <Text style={styles.menuItemIcon} numberOfLines={1}>
+                    {icon}
+                  </Text>
                   <Text
                     style={[
                       styles.menuItemText,
                       isActive && styles.menuItemTextActive,
                     ]}
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
                   >
                     {label}
                   </Text>
@@ -115,6 +123,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: "#2E2469",
+    alignItems: "flex-start",
   },
   drawerTitle: {
     fontSize: 24,
@@ -136,6 +145,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 10,
     gap: 12,
+    minHeight: 48,
   },
   menuItemActive: {
     backgroundColor: "#4DD0E120",
@@ -144,11 +154,15 @@ const styles = StyleSheet.create({
   },
   menuItemIcon: {
     fontSize: 20,
+    width: 24,
+    textAlign: "center",
   },
   menuItemText: {
     fontSize: 16,
     fontWeight: "600",
     color: "#A5A1C8",
+    flex: 1,
+    minWidth: 0,
   },
   menuItemTextActive: {
     color: "#4DD0E1",

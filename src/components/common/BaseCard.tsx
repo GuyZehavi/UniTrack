@@ -27,13 +27,23 @@ const BaseCard: React.FC<BaseCardProps> = ({
       </Pressable>
 
       <View style={styles.cardBody}>
-        <Text style={[styles.taskTitle, isCompleted && styles.completedText]}>
+        <Text
+          style={[styles.taskTitle, isCompleted && styles.completedText]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           {title}
         </Text>
 
         <View style={styles.metaRow}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>Course: {course}</Text>
+            <Text
+              style={styles.badgeText}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              Course: {course}
+            </Text>
           </View>
           {children}
         </View>
@@ -85,6 +95,7 @@ const styles = StyleSheet.create({
   cardBody: {
     flex: 1,
     gap: 6,
+    minWidth: 0,
   },
   taskTitle: {
     fontSize: 16,
@@ -100,6 +111,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 8,
     flexWrap: "wrap",
+    minWidth: 0,
   },
   badge: {
     backgroundColor: "#30285A",
@@ -112,6 +124,7 @@ const styles = StyleSheet.create({
     color: "#D2CDEE",
     fontWeight: "500",
     userSelect: "none",
+    flexShrink: 1,
   },
   deleteButton: {
     width: 28,

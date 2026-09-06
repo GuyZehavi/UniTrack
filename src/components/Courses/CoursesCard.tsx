@@ -14,7 +14,9 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   return (
     <View style={styles.card}>
       <View style={styles.cardBody}>
-        <Text style={styles.courseName}>{course.name}</Text>
+        <Text style={styles.courseName} numberOfLines={1} ellipsizeMode="tail">
+          {course.name}
+        </Text>
       </View>
 
       <Pressable
@@ -44,6 +46,7 @@ const styles = StyleSheet.create({
   cardBody: {
     flex: 1,
     gap: 6,
+    minWidth: 0,
   },
   courseName: {
     fontSize: 16,

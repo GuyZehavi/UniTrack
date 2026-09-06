@@ -8,7 +8,9 @@ export default function RecordingsScreen() {
       <SafeAreaView style={styles.screen}>
         <View style={styles.container}>
           <View style={styles.header}>
-            <Text style={styles.title}> Recordings List </Text>
+            <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+              Recordings List
+            </Text>
           </View>
 
           <RecordingList />
@@ -32,8 +34,9 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
   header: {
-    marginBottom: 50,
+    marginBottom: 24,
     alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 24,

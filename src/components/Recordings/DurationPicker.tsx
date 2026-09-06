@@ -23,7 +23,11 @@ const DurationPicker: React.FC<DurationPickerProps> = ({
         style={[styles.dropdownTrigger, hasError && styles.triggerError]}
         onPress={() => setIsDropdownOpen((prev) => !prev)}
       >
-        <Text style={styles.dropdownTriggerText}>
+        <Text
+          style={styles.dropdownTriggerText}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           {selectedDuration
             ? `⏱️ ${selectedDuration} ${selectedDuration === 1 ? "Hour" : "Hours"}`
             : "⏱️ Choose Duration (Hours)"}
@@ -51,6 +55,8 @@ const DurationPicker: React.FC<DurationPickerProps> = ({
                     styles.itemText,
                     selectedDuration === hour && styles.selectedItemText,
                   ]}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
                 >
                   {hour} {hour === 1 ? "Hour" : "Hours"}
                 </Text>
@@ -87,10 +93,13 @@ const styles = StyleSheet.create({
   dropdownTriggerText: {
     color: "#F5F3FF",
     fontSize: 15,
+    flex: 1,
+    minWidth: 0,
   },
   arrowIcon: {
     color: "#A5A1C8",
     fontSize: 12,
+    marginLeft: 10,
   },
   dropdownList: {
     marginTop: 6,
@@ -114,6 +123,7 @@ const styles = StyleSheet.create({
   itemText: {
     color: "#D2CDEE",
     fontSize: 14,
+    flexShrink: 1,
   },
   selectedItemText: {
     color: "#F5F3FF",

@@ -150,7 +150,9 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
     >
       <View style={styles.overlay}>
         <View style={styles.modalCard}>
-          <Text style={styles.modalTitle}>New Recording</Text>
+          <Text style={styles.modalTitle} numberOfLines={1}>
+            New Recording
+          </Text>
 
           <View style={styles.form}>
             {/* Recording title */}
@@ -246,7 +248,11 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
                 ]}
                 onPress={() => setActivePicker("completeBy")}
               >
-                <Text style={styles.datePickerButtonText}>
+                <Text
+                  style={styles.datePickerButtonText}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                >
                   {completeBy
                     ? `📅 Complete By: ${formatDate(completeBy)}`
                     : "📅 Choose Due Date"}
@@ -275,7 +281,11 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
                 ]}
                 onPress={() => setActivePicker("lesson")}
               >
-                <Text style={styles.datePickerButtonText}>
+                <Text
+                  style={styles.datePickerButtonText}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                >
                   {lessonDate
                     ? `📅 Lesson Date: ${formatDate(lessonDate)}`
                     : "📅 Choose Lesson Date"}
@@ -311,7 +321,9 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
               ]}
               onPress={close}
             >
-              <Text style={styles.cancelButtonText}>Cancel</Text>
+              <Text style={styles.cancelButtonText} numberOfLines={1}>
+                Cancel
+              </Text>
             </Pressable>
 
             <Pressable
@@ -321,7 +333,9 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
               ]}
               onPress={handleSave}
             >
-              <Text style={styles.saveButtonText}>Save Recording</Text>
+              <Text style={styles.saveButtonText} numberOfLines={1}>
+                Save Recording
+              </Text>
             </Pressable>
           </View>
         </View>
@@ -370,6 +384,8 @@ const styles = StyleSheet.create({
   },
   buttonsRow: {
     flexDirection: "row",
+    alignItems: "stretch",
+    justifyContent: "space-between",
     gap: 10,
     marginTop: 6,
   },
@@ -380,12 +396,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#6B6294",
     alignItems: "center",
+    justifyContent: "center",
+    minHeight: 44,
   },
   cancelButtonText: {
     color: "#D2CDEE",
     fontSize: 15,
     fontWeight: "600",
     userSelect: "none",
+    flexShrink: 1,
   },
   saveButton: {
     flex: 1,
@@ -393,12 +412,15 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 10,
     alignItems: "center",
+    justifyContent: "center",
+    minHeight: 44,
   },
   saveButtonText: {
     color: "#100B2E",
     fontSize: 15,
     fontWeight: "600",
     userSelect: "none",
+    flexShrink: 1,
   },
   buttonPressed: {
     opacity: 0.75,
@@ -427,6 +449,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "500",
     userSelect: "none",
+    flexShrink: 1,
+    textAlign: "center",
   },
   inputError: {
     borderColor: "#FF5C8A",

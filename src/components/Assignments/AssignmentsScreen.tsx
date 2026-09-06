@@ -8,7 +8,9 @@ export default function AssignmentsScreen() {
       <SafeAreaView style={styles.screen}>
         <View style={styles.container}>
           <View style={styles.header}>
-            <Text style={styles.title}> Assignments List </Text>
+            <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+              Assignments List
+            </Text>
           </View>
 
           <AssignmentList />
@@ -32,8 +34,9 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
   header: {
-    marginBottom: 50,
+    marginBottom: 24,
     alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 24,

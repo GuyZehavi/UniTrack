@@ -25,26 +25,42 @@ const RecordingCard: React.FC<RecordingCardProps> = ({ recording }) => {
       onDelete={() => dispatch(deleteRecording(recording.id))}
     >
       <View style={[styles.badge, styles.typeBadge]}>
-        <Text style={[styles.badgeText, styles.typeBadgeText]}>
+        <Text
+          style={[styles.badgeText, styles.typeBadgeText]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           🎓 {recording.lessonType}
         </Text>
       </View>
 
       <View style={[styles.badge, styles.durationBadge]}>
-        <Text style={[styles.badgeText, styles.durationBadgeText]}>
+        <Text
+          style={[styles.badgeText, styles.durationBadgeText]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           🕒 {recording.duration} Hours
         </Text>
       </View>
 
       <View style={[styles.badge, styles.completeByBadge]}>
-        <Text style={[styles.badgeText, styles.completeByBadgeText]}>
+        <Text
+          style={[styles.badgeText, styles.completeByBadgeText]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           ⏱️ Complete By: {formatDateString(recording.completeBy)}
         </Text>
       </View>
 
       {recording.lessonDate ? (
         <View style={[styles.badge, styles.lessonDateBadge]}>
-          <Text style={[styles.badgeText, styles.lessonDateBadgeText]}>
+          <Text
+            style={[styles.badgeText, styles.lessonDateBadgeText]}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
             📅 Original Lesson Date: {formatDateString(recording.lessonDate)}
           </Text>
         </View>

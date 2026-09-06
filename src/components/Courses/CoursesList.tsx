@@ -50,12 +50,14 @@ const styles = StyleSheet.create({
   inputRow: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     gap: 10,
     marginBottom: 16,
   },
   input: {
     flex: 1,
+    minWidth: 0,
+    height: 44,
     backgroundColor: "#171137",
     borderWidth: 1,
     borderColor: "#514681",

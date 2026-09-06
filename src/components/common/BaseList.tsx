@@ -25,7 +25,13 @@ const BaseList = <T extends HasId>(props: BaseListProps<T>) => {
       ListEmptyComponent={
         emptyMessage ? (
           <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>{emptyMessage}</Text>
+            <Text
+              style={styles.emptyText}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {emptyMessage}
+            </Text>
           </View>
         ) : null
       }

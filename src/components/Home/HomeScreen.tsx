@@ -93,8 +93,12 @@ const HomeScreen: React.FC = () => {
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.header}>
-        <Text style={styles.title}>UniTrack</Text>
-        <Text style={styles.subtitle}>Overview & Upcoming Tasks</Text>
+        <Text style={styles.title} numberOfLines={1}>
+          UniTrack
+        </Text>
+        <Text style={styles.subtitle} numberOfLines={1} ellipsizeMode="tail">
+          Overview & Upcoming Tasks
+        </Text>
       </View>
 
       <View style={styles.statsGrid}>
@@ -102,13 +106,25 @@ const HomeScreen: React.FC = () => {
           <View style={styles.statCard}>
             <Text style={styles.statIcon}>📋</Text>
             <Text style={styles.statNumber}>{totalTasks}</Text>
-            <Text style={styles.statLabel}>Pending Tasks</Text>
+            <Text
+              style={styles.statLabel}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              Pending Tasks
+            </Text>
           </View>
 
           <View style={styles.statCard}>
             <Text style={styles.statIcon}>🎓</Text>
             <Text style={styles.statNumber}>{courses.length}</Text>
-            <Text style={styles.statLabel}>Active Courses</Text>
+            <Text
+              style={styles.statLabel}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              Active Courses
+            </Text>
           </View>
         </View>
 
@@ -116,8 +132,20 @@ const HomeScreen: React.FC = () => {
           <View style={styles.wideCardContent}>
             <Text style={styles.statIcon}>⏱️</Text>
             <View>
-              <Text style={styles.statLabel}>Watch Time Left</Text>
-              <Text style={styles.statSubText}>Total remaining recordings</Text>
+              <Text
+                style={styles.statLabel}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
+                Watch Time Left
+              </Text>
+              <Text
+                style={styles.statSubText}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
+                Total remaining recordings
+              </Text>
             </View>
           </View>
           <Text style={styles.statNumberAccent}>{totalDuration}h</Text>
@@ -125,8 +153,16 @@ const HomeScreen: React.FC = () => {
       </View>
 
       <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Due In The Upcoming Week</Text>
-        <Text style={styles.taskCountBadge}>{upcomingTasks.length}</Text>
+        <Text
+          style={styles.sectionTitle}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          Due In The Upcoming Week
+        </Text>
+        <Text style={styles.taskCountBadge} numberOfLines={1}>
+          {upcomingTasks.length}
+        </Text>
       </View>
 
       {upcomingTasks.length === 0 ? (
@@ -208,6 +244,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
+    flex: 1,
+    minWidth: 0,
   },
   statIcon: {
     fontSize: 22,
@@ -228,10 +266,12 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#D2CDEE",
     marginTop: 2,
+    flexShrink: 1,
   },
   statSubText: {
     fontSize: 11,
     color: "#A5A1C8",
+    flexShrink: 1,
   },
   sectionHeader: {
     flexDirection: "row",
@@ -243,6 +283,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#F5F3FF",
+    flexShrink: 1,
   },
   taskCountBadge: {
     backgroundColor: "#2E2469",
@@ -297,6 +338,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "600",
     color: "#D2CDEE",
+    flexShrink: 1,
+    textAlign: "center",
   },
   badgeTextUrgent: {
     color: "#FF5C8A",
