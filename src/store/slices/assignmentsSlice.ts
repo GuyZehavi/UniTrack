@@ -1,6 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import type { Assignment } from "../../types";
 import { createEntityReducers, type EntityState } from "../reducers";
+import type { RootState } from "../state";
+import { parseDate } from "../../utils/dates";
 
 const initialState: EntityState<Assignment> = {
   items: [],
@@ -20,4 +22,31 @@ const assignmentsSlice = createSlice({
 
 export const { addAssignment, deleteAssignment, toggleAssignment } =
   assignmentsSlice.actions;
+export const selectSortedByDateAssignments = createSelector(
+  [(state: RootState) => state.assignments.items],
+  (items) => {
+    return [...items].sort((a, b) => {
+      if (a.isCompleted !== b.isCompleted) {
+        return Number(a.isCompleted) - Number(b.isCompleted);
+      } else {
+        return (
+          parseDate(a.completeBy).getTime() - parseDate(b.completeBy).getTime()
+        );
+      }
+    });
+  },
+);
+
+export const selectSortedByCourseAssignments = createSelector(
+  [(state: RootState) => state.assignments.items],
+  (items) => {
+    return [...items].sort((a, b) => {
+      if (a.isCompleted !== b.isCompleted) {
+        return Number(a.isCompleted) - Number(b.isCompleted);
+      } else {
+        return Number(a.course) - Number(b.course);
+      }
+    });
+  },
+);
 export default assignmentsSlice.reducer;

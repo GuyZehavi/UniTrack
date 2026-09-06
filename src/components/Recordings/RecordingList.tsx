@@ -5,11 +5,22 @@ import AddButton from "../common/AddButton";
 import { BaseList } from "../common";
 import RecordingCard from "./RecordingCard";
 import RecordingModal from "./RecordingModal";
+import { Sortings } from "../../types";
+import {
+  selectSortedByCourseRecordings,
+  selectSortedByDateRecordings,
+} from "../../store/slices/RecordingsSlice";
+import SortBar from "../common/SortBar";
 
 const RecordingList: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [sorting, setSorting] = useState<Sortings>(Sortings.DATE);
 
-  const recordings = useAppSelector((state) => state.recordings.items);
+  const recordings = useAppSelector(
+    sorting === Sortings.DATE
+      ? selectSortedByDateRecordings
+      : selectSortedByCourseRecordings,
+  );
 
   const onAddPress = () => {
     setIsModalOpen(true);
@@ -22,6 +33,8 @@ const RecordingList: React.FC = () => {
   return (
     <View style={styles.container}>
       <AddButton text="Add Recording" onPress={onAddPress} />
+
+      <SortBar currentSort={sorting} onSortChange={setSorting} />
 
       <BaseList
         data={recordings}

@@ -16,6 +16,7 @@ import { Recording, LessonType } from "../../types";
 import { addRecording } from "../../store/slices/RecordingsSlice";
 import LessonTypeEntry from "./LessonTypeEntry";
 import DurationPicker from "./DurationPicker";
+import { formatDate } from "../../utils/dates";
 
 interface RecordingModalProps {
   visible: boolean;
@@ -94,17 +95,17 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
         Date.now(),
         currentCourse.trim(),
         title.trim(),
-        completeBy!.toLocaleDateString(),
+        formatDate(completeBy!),
         selectedType!,
         selectedDuration,
-        lessonDate.toLocaleDateString(),
+        formatDate(lessonDate),
       );
     } else {
       newRecording = createRecording(
         Date.now(),
         currentCourse.trim(),
         title.trim(),
-        completeBy!.toLocaleDateString(),
+        formatDate(completeBy!),
         selectedType!,
         selectedDuration,
       );
@@ -247,7 +248,7 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
               >
                 <Text style={styles.datePickerButtonText}>
                   {completeBy
-                    ? `📅 Complete By: ${completeBy.toLocaleDateString()}`
+                    ? `📅 Complete By: ${formatDate(completeBy)}`
                     : "📅 Choose Due Date"}
                 </Text>
               </Pressable>
@@ -276,7 +277,7 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
               >
                 <Text style={styles.datePickerButtonText}>
                   {lessonDate
-                    ? `📅 Lesson Date: ${lessonDate.toLocaleDateString()}`
+                    ? `📅 Lesson Date: ${formatDate(lessonDate)}`
                     : "📅 Choose Lesson Date"}
                 </Text>
               </Pressable>

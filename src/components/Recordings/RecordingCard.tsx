@@ -7,6 +7,7 @@ import {
   deleteRecording,
   toggleRecording,
 } from "../../store/slices/RecordingsSlice";
+import { formatDateString } from "../../utils/dates";
 
 interface RecordingCardProps {
   recording: Recording;
@@ -37,14 +38,14 @@ const RecordingCard: React.FC<RecordingCardProps> = ({ recording }) => {
 
       <View style={[styles.badge, styles.completeByBadge]}>
         <Text style={[styles.badgeText, styles.completeByBadgeText]}>
-          ⏱️ Complete By: {recording.completeBy}
+          ⏱️ Complete By: {formatDateString(recording.completeBy)}
         </Text>
       </View>
 
       {recording.lessonDate ? (
         <View style={[styles.badge, styles.lessonDateBadge]}>
           <Text style={[styles.badgeText, styles.lessonDateBadgeText]}>
-            📅 Original Lesson Date: {recording.lessonDate}
+            📅 Original Lesson Date: {formatDateString(recording.lessonDate)}
           </Text>
         </View>
       ) : null}

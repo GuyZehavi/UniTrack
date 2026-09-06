@@ -7,6 +7,7 @@ import {
   toggleAssignment,
 } from "../../store/slices/assignmentsSlice";
 import BaseCard from "../common/BaseCard";
+import { formatDateString } from "../../utils/dates";
 
 interface AssignmentCardProps {
   assignment: Assignment;
@@ -25,7 +26,7 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({ assignment }) => {
     >
       <View style={[styles.badge, styles.dateBadge]}>
         <Text style={[styles.badgeText, styles.dateBadgeText]}>
-          ⏱️ {assignment.completeBy}
+          ⏱️ {formatDateString(assignment.completeBy)}
         </Text>
       </View>
     </BaseCard>

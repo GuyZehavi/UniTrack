@@ -31,3 +31,8 @@ export interface Course {
   name: string;
   color?: string;
 }
+
+export enum Sortings {
+  DATE = "date",
+  COURSE = "course",
+}

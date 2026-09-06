@@ -14,6 +14,7 @@ import { createAssignment } from "../../utils/assignments";
 import { Assignment } from "../../types";
 import CourseEntry from "../Courses/CourseEntry";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { formatDate } from "../../utils/dates";
 
 interface AssignmentModalProps {
   visible: boolean;
@@ -72,7 +73,7 @@ const AssignmentModal: React.FC<AssignmentModalProps> = ({
       Date.now(),
       currentCourse.trim(),
       title.trim(),
-      completeBy!.toLocaleDateString(),
+      formatDate(completeBy!),
     );
 
     dispatch(addAssignment(newAssignment));
@@ -170,7 +171,7 @@ const AssignmentModal: React.FC<AssignmentModalProps> = ({
               >
                 <Text style={styles.datePickerButtonText}>
                   {completeBy
-                    ? `📅 Complete By: ${completeBy.toLocaleDateString()}`
+                    ? `📅 Complete By: ${formatDate(completeBy)}`
                     : "📅 Choose Due Date"}
                 </Text>
               </Pressable>

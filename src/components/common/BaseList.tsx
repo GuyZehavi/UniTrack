@@ -1,40 +1,35 @@
-import {
-  FlatList,
-  StyleSheet,
-  View,
-  Text
-} from "react-native";
+import { FlatList, StyleSheet, View, Text } from "react-native";
 
 interface HasId {
-    id: number | string;
+  id: number | string;
 }
 
 interface BaseListProps<T extends HasId> {
-    data: T[];
-    renderItem: (item: T) => React.ReactElement | null;
-    emptyMessage?: string;
+  data: T[];
+  renderItem: (item: T) => React.ReactElement | null;
+  emptyMessage?: string;
 }
 
 const BaseList = <T extends HasId>(props: BaseListProps<T>) => {
   const { data, renderItem, emptyMessage } = props;
 
   return (
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => renderItem(item)}
-        contentContainerStyle={[
+    <FlatList
+      data={data}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item }) => renderItem(item)}
+      contentContainerStyle={[
         styles.listContent,
         data.length === 0 && styles.emptyListContent,
-        ]}
-        ListEmptyComponent={
+      ]}
+      ListEmptyComponent={
         emptyMessage ? (
-        <View style={styles.emptyContainer}>
+          <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>{emptyMessage}</Text>
-        </View>
+          </View>
         ) : null
-    }
-      ></FlatList>
+      }
+    ></FlatList>
   );
 };
 
