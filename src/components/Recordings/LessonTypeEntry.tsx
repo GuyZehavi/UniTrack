@@ -1,6 +1,8 @@
 import React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { LessonType } from "../../types";
+import { colors, typography } from "../../theme";
+import { Ionicons } from "@expo/vector-icons";
 
 interface LessonTypeEntryProps {
   type: LessonType;
@@ -21,9 +23,11 @@ const LessonTypeEntry: React.FC<LessonTypeEntryProps> = ({
       style={[styles.chip, isSelected && styles.selectedChip]}
       onPress={() => onPress(type)}
     >
-      <Text style={styles.icon} numberOfLines={1}>
-        {icon}
-      </Text>
+      <Ionicons
+        name={icon as keyof typeof Ionicons.glyphMap}
+        size={15}
+        color="rgba(255, 255, 255, 0.8)"
+      />
       <Text
         style={[styles.text, isSelected && styles.selectedText]}
         numberOfLines={1}
@@ -41,29 +45,26 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "rgba(18, 12, 28, 0.55)",
+    backgroundColor: "rgba(255, 255, 255, 0.04)",
     borderWidth: 1,
-    borderColor: "#514681",
-    borderRadius: 8,
+    borderColor: "rgba(255, 255, 255, 0.08)",
+    borderRadius: 18,
     paddingHorizontal: 12,
     paddingVertical: 8,
     gap: 6,
   },
   selectedChip: {
-    backgroundColor: "#352758",
-    borderColor: "#8A79D6",
-  },
-  icon: {
-    fontSize: 14,
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
+    borderColor: "rgba(255, 255, 255, 0.3)",
   },
   text: {
-    color: "#A5A1C8",
+    color: colors.muted,
     fontSize: 13,
-    fontWeight: "500",
+    fontFamily: typography.regular,
     flexShrink: 1,
   },
   selectedText: {
-    color: "#F5F3FF",
-    fontWeight: "600",
+    color: colors.text,
+    fontFamily: typography.bold,
   },
 });

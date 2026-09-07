@@ -1,14 +1,8 @@
 import type React from "react";
 import { useEffect, useRef } from "react";
-import {
-  Animated,
-  Dimensions,
-  ImageBackground,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Animated, Easing, Image, StyleSheet, View } from "react-native";
 
-const { width } = Dimensions.get("window");
+const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 interface CosmicBackgroundProps {
   children?: React.ReactNode;
@@ -17,41 +11,69 @@ interface CosmicBackgroundProps {
 const CosmicBackground: React.FC<CosmicBackgroundProps> = ({
   children,
 }: CosmicBackgroundProps) => {
-  const glowAnimation = useRef(new Animated.Value(0)).current;
+  const pulseAnimation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(glowAnimation, {
+        Animated.timing(pulseAnimation, {
           toValue: 1,
-          duration: 4000,
+          duration: 2800,
+          easing: Easing.inOut(Easing.ease),
           useNativeDriver: true,
         }),
-        Animated.timing(glowAnimation, {
+        Animated.timing(pulseAnimation, {
           toValue: 0,
-          duration: 4000,
+          duration: 2800,
+          easing: Easing.inOut(Easing.ease),
           useNativeDriver: true,
         }),
       ]),
     ).start();
-  }, [glowAnimation]);
+  }, [pulseAnimation]);
 
-  const glowOpacity = glowAnimation.interpolate({
+  // סקייל מוחשי אך מעודן (6% התרחבות)
+  const pulseScale = pulseAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0.03, 0.15],
+    outputRange: [1, 1.06],
+  });
+
+  // עלייה ברורה של הקשת למעלה בזמן הנשיפה
+  const pulseTranslateY = pulseAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -18],
+  });
+
+  // זוהר עשיר שנפתח ונסגר
+  const glowOpacity = pulseAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.2, 1],
   });
 
   return (
-    <ImageBackground
-      source={require("../../../assets/cosmic-bg.jpg")}
-      style={styles.background}
-      imageStyle={styles.backgroundImage}
-      resizeMode="cover"
-    >
-      <Animated.View style={[styles.pulsingGlow, { opacity: glowOpacity }]} />
+    <View style={styles.background}>
+      {/* תמונת רקע בסיסית */}
+      <Image
+        source={require("../../../assets/cosmic-bg.jpg")}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      />
+
+      {/* שכבת הקשת המונפשת - גם סקייל, גם תנועה אנכית וגם זוהר מלא */}
+      <AnimatedImage
+        source={require("../../../assets/cosmic-bg.jpg")}
+        style={[
+          styles.backgroundImage,
+          {
+            opacity: glowOpacity,
+            transform: [{ translateY: pulseTranslateY }, { scale: pulseScale }],
+          },
+        ]}
+        resizeMode="cover"
+      />
 
       <View style={styles.contentContainer}>{children}</View>
-    </ImageBackground>
+    </View>
   );
 };
 
@@ -60,7 +82,7 @@ export default CosmicBackground;
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: "#030207",
+    backgroundColor: "#080712",
     width: "100%",
     height: "100%",
   },
@@ -70,11 +92,6 @@ const styles = StyleSheet.create({
     top: 0,
     width: "100%",
     height: "100%",
-    transform: [{ scale: 1.05 }],
-  },
-  pulsingGlow: {
-    ...StyleSheet.absoluteFill,
-    backgroundColor: "#FFB703",
   },
   contentContainer: {
     flex: 1,

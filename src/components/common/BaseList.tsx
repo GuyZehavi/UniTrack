@@ -1,4 +1,5 @@
 import { FlatList, StyleSheet, View, Text } from "react-native";
+import { colors, typography } from "../../theme";
 
 interface HasId {
   id: number | string;
@@ -52,9 +53,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   emptyText: {
-    color: "#9E96C2",
+    color: colors.muted,
     fontSize: 15,
-    fontWeight: "500",
+    fontFamily: typography.regular,
     textAlign: "center",
   },
   emptyListContent: {

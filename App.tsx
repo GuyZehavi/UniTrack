@@ -1,5 +1,12 @@
 import { useCallback, useRef, useState } from "react";
-import { Text, View, StyleSheet, Pressable, Dimensions } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  Dimensions,
+  Image,
+} from "react-native";
 import { Provider } from "react-redux";
 import { store, persistor } from "./src/store/state";
 import { Screens } from "./src/types";
@@ -19,6 +26,7 @@ import {
 } from "react-native-reanimated";
 import { PersistGate } from "redux-persist/integration/react";
 import { colors, typography } from "./src/theme";
+import { Ionicons } from "@expo/vector-icons";
 import {
   SpaceGrotesk_400Regular,
   SpaceGrotesk_600SemiBold,
@@ -30,10 +38,14 @@ const { width } = Dimensions.get("window");
 const DRAWER_WIDTH = Math.min(width * 0.75, 300);
 
 const NAV_ITEMS = [
-  { screen: Screens.HOME, label: "Home", icon: "🏠" },
-  { screen: Screens.ASSIGNMENTS, label: "Assignments", icon: "📝" },
-  { screen: Screens.RECORDINGS, label: "Recordings", icon: "📹" },
-  { screen: Screens.COURSES, label: "Courses", icon: "🎓" },
+  { screen: Screens.HOME, label: "Home", icon: "home-outline" },
+  {
+    screen: Screens.ASSIGNMENTS,
+    label: "Assignments",
+    icon: "checkbox-outline",
+  },
+  { screen: Screens.RECORDINGS, label: "Recordings", icon: "videocam-outline" },
+  { screen: Screens.COURSES, label: "Courses", icon: "school-outline" },
 ];
 
 export default function App() {
@@ -132,9 +144,22 @@ export default function App() {
             <SafeAreaView style={styles.screen}>
               <View style={styles.topHeader}>
                 <Pressable style={styles.hamburgerButton} onPress={openSideBar}>
-                  <Text style={styles.hamburgerIcon}>☰</Text>
+                  <Ionicons
+                    name="menu-outline"
+                    size={22}
+                    color="rgba(255, 255, 255, 0.8)"
+                  />
                 </Pressable>
-                <Text style={styles.topHeaderTitle}>{getScreenTitle()}</Text>
+
+                <View style={styles.headerBrandContainer}>
+                  <Image
+                    source={require("./assets/logo-mark.png")}
+                    style={styles.headerLogo}
+                    resizeMode="contain"
+                  />
+                  <Text style={styles.topHeaderTitle}>{getScreenTitle()}</Text>
+                </View>
+
                 <View style={styles.placeholder} />
               </View>
 
@@ -171,8 +196,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: "rgba(10, 8, 25, 0.45)",
+    paddingVertical: 10,
+    backgroundColor: "rgba(12, 10, 20, 0.6)",
     borderBottomWidth: 1,
     borderBottomColor: "rgba(255, 255, 255, 0.08)",
   },
@@ -182,19 +207,13 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.06)",
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.1)",
-  },
-  hamburgerIcon: {
-    fontSize: 20,
-    color: "#E2E8F0",
-  },
-  topHeaderTitle: {
-    fontSize: 18,
-    fontFamily: typography.semibold,
-    color: "#FFFFFF",
-    letterSpacing: -0.3,
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
   },
   placeholder: {
-    width: 36,
+    width: 40,
   },
   contentContainer: {
     flex: 1,
@@ -230,7 +249,7 @@ const styles = StyleSheet.create({
   drawerTitle: {
     fontSize: 24,
     fontFamily: typography.bold,
-    color: colors.cyan,
+    color: colors.text,
     letterSpacing: -0.6,
   },
   drawerSubtitle: {
@@ -251,9 +270,9 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   menuItemActive: {
-    backgroundColor: "#4DD0E120",
+    backgroundColor: "rgba(245, 158, 11, 0.14)",
     borderWidth: 1,
-    borderColor: "#4DD0E1",
+    borderColor: "rgba(245, 158, 11, 0.5)",
   },
   menuItemIcon: {
     fontSize: 20,
@@ -266,5 +285,21 @@ const styles = StyleSheet.create({
   menuItemTextActive: {
     color: "#4DD0E1",
     fontWeight: "bold",
+  },
+  headerBrandContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+  },
+  headerLogo: {
+    width: 36,
+    height: 36,
+  },
+  topHeaderTitle: {
+    fontSize: 20,
+    fontFamily: typography.bold,
+    color: "#FFFFFF",
+    letterSpacing: -0.4,
   },
 });

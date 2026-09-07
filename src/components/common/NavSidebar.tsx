@@ -1,5 +1,6 @@
 import { memo } from "react";
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable, Image } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import Animated, {
   SharedValue,
   useAnimatedStyle,
@@ -57,12 +58,19 @@ export const NavSidebar = memo(
           style={[styles.drawer, { width: drawerWidth }, drawerAnimatedStyle]}
         >
           <View style={styles.drawerHeader}>
-            <Text style={styles.drawerTitle} numberOfLines={1}>
-              UniTrack
-            </Text>
-            <Text style={styles.drawerSubtitle} numberOfLines={1}>
-              Menu
-            </Text>
+            <Image
+              source={require("../../../assets/logo-mark.png")}
+              style={styles.drawerLogo}
+              resizeMode="contain"
+            />
+            <View style={styles.drawerHeaderTextContainer}>
+              <Text style={styles.drawerTitle} numberOfLines={1}>
+                UniTrack
+              </Text>
+              <Text style={styles.drawerSubtitle} numberOfLines={1}>
+                Menu
+              </Text>
+            </View>
           </View>
 
           <View style={styles.menuItems}>
@@ -74,9 +82,12 @@ export const NavSidebar = memo(
                   style={[styles.menuItem, isActive && styles.menuItemActive]}
                   onPress={() => onSelect(screen)}
                 >
-                  <Text style={styles.menuItemIcon} numberOfLines={1}>
-                    {icon}
-                  </Text>
+                  <Ionicons
+                    name={icon as keyof typeof Ionicons.glyphMap}
+                    size={21}
+                    color={isActive ? colors.amber : "rgba(255, 255, 255, 0.8)"}
+                    style={styles.menuItemIcon}
+                  />
                   <Text
                     style={[
                       styles.menuItemText,
@@ -124,19 +135,29 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
-    alignItems: "flex-start",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  drawerLogo: {
+    width: 44,
+    height: 44,
+  },
+  drawerHeaderTextContainer: {
+    flex: 1,
+    justifyContent: "center",
   },
   drawerTitle: {
-    fontSize: 24,
+    fontSize: 22,
     fontFamily: typography.bold,
-    color: colors.cyan,
+    color: colors.text,
     letterSpacing: -0.6,
   },
   drawerSubtitle: {
-    fontSize: 14,
+    fontSize: 13,
     color: colors.muted,
     fontFamily: typography.regular,
-    marginTop: 4,
+    marginTop: 2,
   },
   menuItems: {
     gap: 8,
@@ -151,12 +172,11 @@ const styles = StyleSheet.create({
     minHeight: 48,
   },
   menuItemActive: {
-    backgroundColor: "rgba(76, 201, 240, 0.14)",
+    backgroundColor: "rgba(245, 158, 11, 0.14)",
     borderWidth: 1,
-    borderColor: colors.cyan,
+    borderColor: "rgba(245, 158, 11, 0.5)",
   },
   menuItemIcon: {
-    fontSize: 20,
     width: 24,
     textAlign: "center",
   },
@@ -168,7 +188,7 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
   menuItemTextActive: {
-    color: colors.cyan,
+    color: colors.amber,
     fontFamily: typography.bold,
   },
 });

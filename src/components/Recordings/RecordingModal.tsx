@@ -17,6 +17,8 @@ import { addRecording } from "../../store/slices/RecordingsSlice";
 import LessonTypeEntry from "./LessonTypeEntry";
 import DurationPicker from "./DurationPicker";
 import { formatDate } from "../../utils/dates";
+import { Ionicons } from "@expo/vector-icons";
+import { colors, typography } from "../../theme";
 
 interface RecordingModalProps {
   visible: boolean;
@@ -129,10 +131,10 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
 
   const currentCourse = selectedCourse;
   const LESSON_TYPES: { type: LessonType; icon: string }[] = [
-    { type: LessonType.LECTURE, icon: "🤓" },
-    { type: LessonType.RECITATION, icon: "📝" },
-    { type: LessonType.LAB, icon: "🔬" },
-    { type: LessonType.REVIEW, icon: "💡" },
+    { type: LessonType.LECTURE, icon: "school-outline" },
+    { type: LessonType.RECITATION, icon: "reader-outline" },
+    { type: LessonType.LAB, icon: "flask-outline" },
+    { type: LessonType.REVIEW, icon: "bulb-outline" },
   ];
 
   const getTodayStart = () => {
@@ -163,7 +165,7 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
               <TextInput
                 style={[styles.input, errors.title && styles.inputError]}
                 placeholder="Recording Title"
-                placeholderTextColor="#A5A1C8"
+                placeholderTextColor={colors.muted}
                 value={title}
                 onChangeText={(text) => {
                   setTitle(text);
@@ -248,14 +250,19 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
                 ]}
                 onPress={() => setActivePicker("completeBy")}
               >
+                <Ionicons
+                  name="calendar-outline"
+                  size={17}
+                  color={colors.muted}
+                />
                 <Text
                   style={styles.datePickerButtonText}
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
                   {completeBy
-                    ? `📅 Complete By: ${formatDate(completeBy)}`
-                    : "📅 Choose Complete By Date"}
+                    ? `Complete By: ${formatDate(completeBy)}`
+                    : "Choose Complete By Date"}
                 </Text>
               </Pressable>
             </View>
@@ -281,14 +288,19 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
                 ]}
                 onPress={() => setActivePicker("lesson")}
               >
+                <Ionicons
+                  name="calendar-outline"
+                  size={17}
+                  color={colors.muted}
+                />
                 <Text
                   style={styles.datePickerButtonText}
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
                   {lessonDate
-                    ? `📅 Lesson Date: ${formatDate(lessonDate)}`
-                    : "📅 Choose Lesson Date"}
+                    ? `Lesson Date: ${formatDate(lessonDate)}`
+                    : "Choose Lesson Date"}
                 </Text>
               </Pressable>
             </View>
@@ -347,7 +359,7 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "#08051ACC",
+    backgroundColor: "rgba(0, 0, 0, 0.68)",
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
@@ -355,8 +367,10 @@ const styles = StyleSheet.create({
   modalCard: {
     width: "100%",
     maxWidth: 420,
-    backgroundColor: "rgba(18, 12, 28, 0.72)",
-    borderRadius: 14,
+    backgroundColor: "rgba(18, 14, 28, 0.78)",
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 18,
     padding: 20,
     gap: 16,
     elevation: 5,
@@ -365,7 +379,8 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#F5F3FF",
+    color: colors.text,
+    fontFamily: typography.bold,
     textAlign: "center",
     userSelect: "none",
   },
@@ -373,14 +388,15 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   input: {
-    backgroundColor: "rgba(18, 12, 28, 0.55)",
+    backgroundColor: colors.glass,
     borderWidth: 1,
-    borderColor: "#514681",
-    borderRadius: 10,
+    borderColor: colors.border,
+    borderRadius: 16,
     paddingHorizontal: 14,
     paddingVertical: 10,
     fontSize: 15,
-    color: "#F5F3FF",
+    color: colors.text,
+    fontFamily: typography.regular,
   },
   buttonsRow: {
     flexDirection: "row",
@@ -400,7 +416,7 @@ const styles = StyleSheet.create({
     minHeight: 44,
   },
   cancelButtonText: {
-    color: "#D2CDEE",
+    color: colors.muted,
     fontSize: 15,
     fontWeight: "600",
     userSelect: "none",
@@ -408,7 +424,9 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     flex: 1,
-    backgroundColor: "#65D6E8",
+    backgroundColor: colors.amberSurface,
+    borderWidth: 1,
+    borderColor: "rgba(245, 158, 11, 0.5)",
     paddingVertical: 12,
     borderRadius: 10,
     alignItems: "center",
@@ -416,7 +434,8 @@ const styles = StyleSheet.create({
     minHeight: 44,
   },
   saveButtonText: {
-    color: "#160D22",
+    color: colors.amber,
+    fontFamily: typography.bold,
     fontSize: 15,
     fontWeight: "600",
     userSelect: "none",
@@ -431,7 +450,9 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   datePickerButton: {
-    backgroundColor: "rgba(18, 12, 28, 0.55)",
+    flexDirection: "row",
+    gap: 8,
+    backgroundColor: colors.glass,
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.12)",
     borderRadius: 10,
@@ -442,10 +463,11 @@ const styles = StyleSheet.create({
   },
   datePickerButtonPressed: {
     opacity: 0.8,
-    borderColor: "#4DD0E1",
+    borderColor: "rgba(245, 158, 11, 0.5)",
   },
   datePickerButtonText: {
-    color: "#E2E8F0",
+    color: colors.text,
+    fontFamily: typography.regular,
     fontSize: 15,
     fontWeight: "500",
     userSelect: "none",
@@ -473,7 +495,7 @@ const styles = StyleSheet.create({
   sectionLabel: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#D2CDEE",
+    color: colors.muted,
     userSelect: "none",
   },
   errorTextInline: {

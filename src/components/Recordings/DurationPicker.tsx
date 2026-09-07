@@ -1,6 +1,8 @@
 import type React from "react";
 import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { colors, typography } from "../../theme";
 
 interface DurationPickerProps {
   selectedDuration: number;
@@ -29,10 +31,14 @@ const DurationPicker: React.FC<DurationPickerProps> = ({
           ellipsizeMode="tail"
         >
           {selectedDuration
-            ? `⏱️ ${selectedDuration} ${selectedDuration === 1 ? "Hour" : "Hours"}`
-            : "⏱️ Choose Duration (Hours)"}
+            ? `${selectedDuration} ${selectedDuration === 1 ? "Hour" : "Hours"}`
+            : "Choose Duration (Hours)"}
         </Text>
-        <Text style={styles.arrowIcon}>{isDropdownOpen ? "▲" : "▼"}</Text>
+        <Ionicons
+          name={isDropdownOpen ? "chevron-up" : "chevron-down"}
+          size={16}
+          color={colors.muted}
+        />
       </Pressable>
 
       {isDropdownOpen && (
@@ -80,10 +86,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "rgba(18, 12, 28, 0.55)",
+    backgroundColor: colors.glass,
     borderWidth: 1,
-    borderColor: "#514681",
-    borderRadius: 10,
+    borderColor: colors.border,
+    borderRadius: 16,
     paddingHorizontal: 14,
     paddingVertical: 12,
   },
@@ -91,22 +97,22 @@ const styles = StyleSheet.create({
     borderColor: "#FF5C8A",
   },
   dropdownTriggerText: {
-    color: "#F5F3FF",
+    color: colors.text,
     fontSize: 15,
     flex: 1,
     minWidth: 0,
   },
   arrowIcon: {
-    color: "#A5A1C8",
+    color: colors.muted,
     fontSize: 12,
     marginLeft: 10,
   },
   dropdownList: {
     marginTop: 6,
-    backgroundColor: "rgba(18, 12, 28, 0.55)",
+    backgroundColor: colors.glassStrong,
     borderWidth: 1,
-    borderColor: "#514681",
-    borderRadius: 10,
+    borderColor: colors.border,
+    borderRadius: 16,
     maxHeight: 160,
     overflow: "hidden",
   },
@@ -118,15 +124,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
   },
   selectedDropdownItem: {
-    backgroundColor: "#352758",
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
   },
   itemText: {
-    color: "#D2CDEE",
+    color: colors.muted,
     fontSize: 14,
     flexShrink: 1,
   },
   selectedItemText: {
-    color: "#F5F3FF",
-    fontWeight: "bold",
+    color: colors.text,
+    fontFamily: typography.bold,
   },
 });

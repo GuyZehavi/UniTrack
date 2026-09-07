@@ -9,6 +9,7 @@ import {
 } from "../../store/slices/RecordingsSlice";
 import { formatDateString } from "../../utils/dates";
 import { colors, typography } from "../../theme";
+import { Ionicons } from "@expo/vector-icons";
 
 interface RecordingCardProps {
   recording: Recording;
@@ -31,7 +32,8 @@ const RecordingCard: React.FC<RecordingCardProps> = ({ recording }) => {
           numberOfLines={1}
           ellipsizeMode="tail"
         >
-          🎓 {recording.lessonType}
+          <Ionicons name="school-outline" size={13} color={colors.text} />
+          {recording.lessonType}
         </Text>
       </View>
 
@@ -41,7 +43,8 @@ const RecordingCard: React.FC<RecordingCardProps> = ({ recording }) => {
           numberOfLines={1}
           ellipsizeMode="tail"
         >
-          🕒 {recording.duration} Hours
+          <Ionicons name="time-outline" size={13} color={colors.text} />
+          {recording.duration} Hours
         </Text>
       </View>
 
@@ -51,7 +54,8 @@ const RecordingCard: React.FC<RecordingCardProps> = ({ recording }) => {
           numberOfLines={1}
           ellipsizeMode="tail"
         >
-          ⏱️ Complete By: {formatDateString(recording.completeBy)}
+          <Ionicons name="calendar-outline" size={13} color={colors.amber} />
+          Complete By: {formatDateString(recording.completeBy)}
         </Text>
       </View>
 
@@ -62,7 +66,8 @@ const RecordingCard: React.FC<RecordingCardProps> = ({ recording }) => {
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            📅 Original Lesson Date: {formatDateString(recording.lessonDate)}
+            <Ionicons name="calendar-outline" size={13} color={colors.text} />
+            Original Lesson Date: {formatDateString(recording.lessonDate)}
           </Text>
         </View>
       ) : null}
@@ -82,28 +87,36 @@ const styles = StyleSheet.create({
     userSelect: "none",
   },
   typeBadge: {
-    backgroundColor: "#1F2F52",
+    backgroundColor: "rgba(255, 255, 255, 0.06)",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.08)",
   },
   typeBadgeText: {
-    color: "#7FB2F0",
+    color: colors.muted,
   },
   durationBadge: {
-    backgroundColor: "#193E3C",
+    backgroundColor: "rgba(255, 255, 255, 0.06)",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.08)",
   },
   durationBadgeText: {
-    color: "#6EE7B7",
+    color: colors.muted,
   },
   completeByBadge: {
-    backgroundColor: "rgba(255, 183, 3, 0.14)",
+    backgroundColor: colors.amberSurface,
+    borderWidth: 1,
+    borderColor: "rgba(245, 158, 11, 0.35)",
   },
   completeByBadgeText: {
     color: colors.amber,
   },
   lessonDateBadge: {
-    backgroundColor: "#352758",
+    backgroundColor: "rgba(255, 255, 255, 0.06)",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.08)",
   },
   lessonDateBadgeText: {
-    color: "#C4B5FD",
+    color: colors.muted,
   },
 });
 

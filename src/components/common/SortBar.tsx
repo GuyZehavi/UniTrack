@@ -1,6 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { Sortings } from "../../types";
-import { colors, glassSurface, typography } from "../../theme";
+import { colors, typography } from "../../theme";
+import { Ionicons } from "@expo/vector-icons";
 
 interface SortBarProps {
   currentSort: Sortings;
@@ -23,7 +24,12 @@ const SortBar: React.FC<SortBarProps> = ({ currentSort, onSortChange }) => {
             currentSort === Sortings.DATE && styles.sortButtonTextActive,
           ]}
         >
-          📅 Sort by Date
+          <Ionicons
+            name="calendar-outline"
+            size={15}
+            color={currentSort === Sortings.DATE ? colors.text : colors.muted}
+          />
+          Sort by Date
         </Text>
       </Pressable>
 
@@ -40,7 +46,12 @@ const SortBar: React.FC<SortBarProps> = ({ currentSort, onSortChange }) => {
             currentSort === Sortings.COURSE && styles.sortButtonTextActive,
           ]}
         >
-          📚 Sort by Course
+          <Ionicons
+            name="book-outline"
+            size={15}
+            color={currentSort === Sortings.COURSE ? colors.text : colors.muted}
+          />
+          Sort by Course
         </Text>
       </Pressable>
     </View>
@@ -51,37 +62,42 @@ export default SortBar;
 
 const styles = StyleSheet.create({
   sortContainer: {
-    ...glassSurface,
     flexDirection: "row",
-    padding: 3,
+    backgroundColor: "rgba(255, 255, 255, 0.04)",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.08)",
+    borderRadius: 22,
+    padding: 4,
     marginBottom: 12,
-    gap: 6,
+    gap: 4,
     alignItems: "stretch",
   },
   sortButton: {
     flex: 1,
     paddingVertical: 10,
-    borderRadius: 8,
+    borderRadius: 18,
     alignItems: "center",
     justifyContent: "center",
     minHeight: 44,
     paddingHorizontal: 8,
   },
   sortButtonActive: {
-    backgroundColor: colors.cyan,
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.3)",
   },
   sortButtonText: {
     color: colors.muted,
     fontSize: 13,
     lineHeight: 18,
-    fontFamily: typography.semibold,
+    fontFamily: typography.regular,
     flexShrink: 1,
     textAlign: "center",
     textAlignVertical: "center",
     includeFontPadding: false,
   },
   sortButtonTextActive: {
-    color: "#160D22",
+    color: colors.text,
     fontFamily: typography.bold,
   },
 });

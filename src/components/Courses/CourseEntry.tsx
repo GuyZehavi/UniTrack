@@ -1,6 +1,7 @@
 import type React from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 import type { Course } from "../../types";
+import { colors, typography } from "../../theme";
 
 interface CourseEntryProps {
   isSelected: boolean;
@@ -36,27 +37,27 @@ const styles = StyleSheet.create({
   courseChip: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#2A2352",
+    backgroundColor: "rgba(255, 255, 255, 0.04)",
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: "#514681",
+    borderColor: "rgba(255, 255, 255, 0.08)",
   },
   courseChipSelected: {
-    backgroundColor: "#65D6E8",
-    borderColor: "#65D6E8",
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
+    borderColor: "rgba(255, 255, 255, 0.3)",
   },
   courseChipText: {
     fontSize: 13,
-    color: "#D2CDEE",
-    fontWeight: "500",
+    color: colors.muted,
+    fontFamily: typography.regular,
     userSelect: "none",
     maxWidth: 180,
     flexShrink: 1,
   },
   courseChipTextSelected: {
-    color: "#FFFFFF",
+    color: colors.text,
   },
 });
 

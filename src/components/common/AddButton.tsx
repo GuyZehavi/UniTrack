@@ -27,12 +27,12 @@ export default AddButton;
 
 const styles = StyleSheet.create({
   addButton: {
-    backgroundColor: colors.amber,
+    backgroundColor: colors.amberSurface,
     paddingHorizontal: 20,
     paddingVertical: 12,
     borderRadius: 10,
-    borderWidth: 2,
-    borderColor: colors.amber,
+    borderWidth: 1,
+    borderColor: "rgba(245, 158, 11, 0.5)",
     justifyContent: "center",
     alignItems: "center",
     height: 48,
@@ -41,10 +41,10 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   addButtonText: {
-    fontFamily: typography.semibold,
+    fontFamily: typography.bold,
     fontSize: 15,
     lineHeight: 20,
-    color: "#160D22",
+    color: colors.amber,
     userSelect: "none",
     flexShrink: 1,
     textAlign: "center",

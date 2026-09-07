@@ -10,6 +10,7 @@ import BaseCard from "../common/BaseCard";
 import { formatDateString } from "../../utils/dates";
 import { cancelAssignmentReminder } from "../../notifications/notification";
 import { colors, typography } from "../../theme";
+import { Ionicons } from "@expo/vector-icons";
 
 interface AssignmentCardProps {
   assignment: Assignment;
@@ -39,7 +40,8 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({ assignment }) => {
           numberOfLines={1}
           ellipsizeMode="tail"
         >
-          ⏱️ {formatDateString(assignment.completeBy)}
+          <Ionicons name="time-outline" size={13} color={colors.amber} />
+          {formatDateString(assignment.completeBy)}
         </Text>
       </View>
     </BaseCard>

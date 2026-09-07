@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../hooks";
 import { deleteCourse } from "../../store/slices/coursesSlice";
 import type { Course } from "../../types";
 import { colors, glassSurface, typography } from "../../theme";
+import { Ionicons } from "@expo/vector-icons";
 
 interface CourseCardProps {
   course: Course;
@@ -27,7 +28,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         ]}
         onPress={() => dispatch(deleteCourse(course.id))}
       >
-        <Text style={styles.deleteButtonText}>✕</Text>
+        <Ionicons name="trash-outline" size={16} color={colors.danger} />
       </Pressable>
     </View>
   );
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   deleteButtonText: {
-    color: colors.magenta,
+    color: colors.danger,
     fontSize: 14,
     fontFamily: typography.bold,
     userSelect: "none",

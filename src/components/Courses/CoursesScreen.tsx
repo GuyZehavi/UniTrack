@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontFamily: typography.bold,
-    color: colors.amber,
+    color: colors.text,
     letterSpacing: -0.6,
     userSelect: "none",
   },

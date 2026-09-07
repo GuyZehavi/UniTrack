@@ -1,8 +1,9 @@
 import { useMemo } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import { useAppSelector } from "../../hooks";
 import { parseDate } from "../../utils/dates";
 import { colors, glassSurface, typography } from "../../theme";
+import { Ionicons } from "@expo/vector-icons";
 
 interface UpcomingTask {
   id: string | number;
@@ -63,10 +64,8 @@ const HomeScreen: React.FC = () => {
   const getDaysRemainingBadge = (dueDate: Date) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const start = today.getTime();
     const target = new Date(dueDate);
     target.setHours(0, 0, 0, 0);
-    const end = target.getTime();
 
     const diffDays = Math.ceil(
       (target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
@@ -79,11 +78,16 @@ const HomeScreen: React.FC = () => {
     else if (diffDays === 1) label = "Due Tomorrow";
 
     return (
-      <View style={[styles.badge, isUrgent && styles.badgeUrgent]}>
-        <Text style={[styles.badgeText, isUrgent && styles.badgeTextUrgent]}>
-          {label}
-        </Text>
-      </View>
+      <Text
+        style={[
+          styles.badge,
+          isUrgent && styles.badgeUrgent,
+          styles.badgeText,
+          isUrgent && styles.badgeTextUrgent,
+        ]}
+      >
+        {label}
+      </Text>
     );
   };
 
@@ -128,24 +132,16 @@ const HomeScreen: React.FC = () => {
         </View>
 
         <View style={[styles.statCard, styles.statCardWide]}>
-          <View style={styles.wideCardContent}>
-            <View>
-              <Text
-                style={styles.statLabel}
-                numberOfLines={1}
-                ellipsizeMode="tail"
-              >
-                Watch Time Left
-              </Text>
-              <Text
-                style={styles.statSubText}
-                numberOfLines={1}
-                ellipsizeMode="tail"
-              >
-                Total remaining recordings
-              </Text>
-            </View>
-          </View>
+          <Text style={styles.statLabel} numberOfLines={1} ellipsizeMode="tail">
+            Watch Time Left
+          </Text>
+          <Text
+            style={styles.statSubText}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            Total remaining recordings
+          </Text>
           <Text style={styles.statNumberAccent}>{totalDuration}h</Text>
         </View>
       </View>
@@ -171,15 +167,20 @@ const HomeScreen: React.FC = () => {
         <View style={styles.tasksList}>
           {upcomingTasks.map((task) => (
             <View key={`${task.type}-${task.id}`} style={styles.taskCard}>
-              <Text style={styles.taskTypeIcon}>
-                {task.type === "assignment" ? "📝" : "📹"}
+              <Ionicons
+                name={
+                  task.type === "assignment"
+                    ? "checkbox-outline"
+                    : "videocam-outline"
+                }
+                size={21}
+                color="rgba(255, 255, 255, 0.8)"
+                style={styles.taskTypeIcon}
+              />
+              <Text style={styles.taskTitle} numberOfLines={1}>
+                {task.title}
               </Text>
-              <View style={styles.taskInfo}>
-                <Text style={styles.taskTitle} numberOfLines={1}>
-                  {task.title}
-                </Text>
-                <Text style={styles.taskCourse}>{task.course}</Text>
-              </View>
+              <Text style={styles.taskCourse}>{task.course}</Text>
               {getDaysRemainingBadge(task.dueDate)}
             </View>
           ))}
@@ -233,18 +234,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   statCardWide: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    position: "relative",
+    alignItems: "flex-start",
     paddingHorizontal: 18,
     paddingVertical: 14,
-  },
-  wideCardContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-    flex: 1,
-    minWidth: 0,
   },
   statNumber: {
     fontSize: 32,
@@ -253,9 +246,12 @@ const styles = StyleSheet.create({
     letterSpacing: -1,
   },
   statNumberAccent: {
+    position: "absolute",
+    right: 18,
+    top: 14,
     fontSize: 32,
     fontFamily: typography.bold,
-    color: colors.cyan,
+    color: colors.amber,
     letterSpacing: -1,
   },
   statLabel: {
@@ -287,8 +283,10 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   taskCountBadge: {
-    backgroundColor: "rgba(76, 201, 240, 0.14)",
-    color: colors.cyan,
+    backgroundColor: "transparent",
+    borderWidth: 0,
+    shadowOpacity: 0,
+    color: colors.amber,
     fontSize: 12,
     fontFamily: typography.bold,
     paddingHorizontal: 8,
@@ -300,16 +298,17 @@ const styles = StyleSheet.create({
   },
   taskCard: {
     ...glassSurface,
-    flexDirection: "row",
-    alignItems: "center",
+    position: "relative",
+    justifyContent: "center",
+    minHeight: 64,
     padding: 12,
-    gap: 12,
+    paddingLeft: 48,
+    paddingRight: 108,
   },
   taskTypeIcon: {
-    fontSize: 20,
-  },
-  taskInfo: {
-    flex: 1,
+    position: "absolute",
+    left: 14,
+    top: 21,
   },
   taskTitle: {
     fontSize: 15,
@@ -323,15 +322,22 @@ const styles = StyleSheet.create({
     fontFamily: typography.regular,
   },
   badge: {
-    backgroundColor: "rgba(255, 255, 255, 0.08)",
+    position: "absolute",
+    right: 12,
+    top: 18,
+    backgroundColor: "transparent",
+    borderWidth: 0,
+    borderColor: "transparent",
+    shadowOpacity: 0,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 8,
   },
   badgeUrgent: {
-    backgroundColor: "#FF5C8A25",
-    borderWidth: 1,
-    borderColor: "#FF5C8A",
+    backgroundColor: "transparent",
+    borderWidth: 0,
+    borderColor: "transparent",
+    shadowOpacity: 0,
   },
   badgeText: {
     fontSize: 12,
@@ -341,7 +347,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   badgeTextUrgent: {
-    color: colors.magenta,
+    color: colors.danger,
     fontFamily: typography.bold,
   },
   emptyContainer: {

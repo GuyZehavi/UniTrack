@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { colors, glassSurface, typography } from "../../theme";
+import { Ionicons } from "@expo/vector-icons";
 
 interface BaseCardProps {
   title: string;
@@ -24,7 +25,9 @@ const BaseCard: React.FC<BaseCardProps> = ({
         style={[styles.checkbox, isCompleted && styles.checkboxChecked]}
         onPress={onToggle}
       >
-        {isCompleted && <Text style={styles.checkmark}>✓</Text>}
+        {isCompleted && (
+          <Ionicons name="checkmark" size={15} color={colors.text} />
+        )}
       </Pressable>
 
       <View style={styles.cardBody}>
@@ -57,7 +60,7 @@ const BaseCard: React.FC<BaseCardProps> = ({
         ]}
         onPress={onDelete}
       >
-        <Text style={styles.deleteButtonText}>✕</Text>
+        <Ionicons name="trash-outline" size={16} color={colors.danger} />
       </Pressable>
     </View>
   );
@@ -81,8 +84,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   checkboxChecked: {
-    backgroundColor: "#65D6E8",
-    borderColor: "#65D6E8",
+    backgroundColor: colors.amberSurface,
+    borderColor: "rgba(245, 158, 11, 0.5)",
   },
   checkmark: {
     color: "#FFFFFF",
@@ -137,7 +140,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   deleteButtonText: {
-    color: colors.magenta,
+    color: colors.danger,
     fontSize: 14,
     fontFamily: typography.bold,
     userSelect: "none",

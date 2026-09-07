@@ -56,7 +56,7 @@ export async function scheduleAssignmentReminder(
 
   const notificationId = await Notifications.scheduleNotificationAsync({
     content: {
-      title: "Reminder: Assignment Due Soon! 📝",
+      title: "Reminder: Assignment Due Soon!",
       body: `"${assignmentTitle}" for ${courseName} is due tomorrow.`,
       sound: false,
     },
