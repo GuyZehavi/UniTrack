@@ -2,6 +2,11 @@
   "expo": {
     "name": "UniTrack",
     "slug": "UniTrack",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#080712"
+    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

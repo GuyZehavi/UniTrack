@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { useAppSelector } from "../../hooks";
 import { parseDate } from "../../utils/dates";
 import { colors, glassSurface, typography } from "../../theme";

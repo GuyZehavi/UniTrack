@@ -102,11 +102,6 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
   },
-  arrowIcon: {
-    color: colors.muted,
-    fontSize: 12,
-    marginLeft: 10,
-  },
   dropdownList: {
     marginTop: 6,
     backgroundColor: colors.glassStrong,

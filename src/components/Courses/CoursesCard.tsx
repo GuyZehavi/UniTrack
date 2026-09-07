@@ -64,12 +64,6 @@ const styles = StyleSheet.create({
   deleteButtonPressed: {
     opacity: 0.7,
   },
-  deleteButtonText: {
-    color: colors.danger,
-    fontSize: 14,
-    fontFamily: typography.bold,
-    userSelect: "none",
-  },
 });
 
 export default CourseCard;

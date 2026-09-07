@@ -87,12 +87,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.amberSurface,
     borderColor: "rgba(245, 158, 11, 0.5)",
   },
-  checkmark: {
-    color: "#FFFFFF",
-    fontSize: 13,
-    fontFamily: typography.bold,
-    userSelect: "none",
-  },
   cardBody: {
     flex: 1,
     gap: 6,
@@ -138,12 +132,6 @@ const styles = StyleSheet.create({
   },
   deleteButtonPressed: {
     opacity: 0.7,
-  },
-  deleteButtonText: {
-    color: colors.danger,
-    fontSize: 14,
-    fontFamily: typography.bold,
-    userSelect: "none",
   },
 });
 

@@ -1,5 +1,4 @@
 export const colors = {
-  background: "#080712",
   glass: "rgba(255, 255, 255, 0.07)",
   glassStrong: "rgba(18, 14, 28, 0.78)",
   border: "rgba(255, 255, 255, 0.14)",

@@ -31,7 +31,7 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({ assignment }) => {
       title={assignment.title}
       course={assignment.course}
       isCompleted={assignment.isCompleted}
-      onToggle={() => dispatch(toggleAssignment(assignment.id))}
+      onToggle={handleToggle}
       onDelete={() => dispatch(deleteAssignment(assignment.id))}
     >
       <View style={[styles.badge, styles.dateBadge]}>

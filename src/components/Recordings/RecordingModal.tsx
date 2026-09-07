@@ -51,7 +51,7 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
   const dispatch = useAppDispatch();
   const courses = useAppSelector((state) => state.courses.items);
 
-  const onDateChange = (event: any, selectedDate?: Date) => {
+  const onDateChange = (_event: unknown, selectedDate?: Date) => {
     const picker = activePicker;
     setActivePicker(null);
     if (selectedDate) {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useAppSelector } from "../../hooks";
 import AssignmentCard from "./AssignmentCard";
 import AssignmentModal from "./AssignmentModal";
@@ -52,9 +52,5 @@ export default AssignmentList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  listContent: {
-    gap: 7,
-    paddingBottom: 24,
   },
 });

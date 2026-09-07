@@ -43,7 +43,7 @@ const AssignmentModal: React.FC<AssignmentModalProps> = ({
   const dispatch = useAppDispatch();
   const courses = useAppSelector((state) => state.courses.items);
 
-  const onDateChange = (event: any, selectedDate?: Date) => {
+  const onDateChange = (_event: unknown, selectedDate?: Date) => {
     setShowDatePicker(false);
     if (selectedDate) {
       setCompleteBy(selectedDate);

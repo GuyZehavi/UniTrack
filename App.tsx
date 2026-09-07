@@ -25,7 +25,7 @@ import {
   withTiming,
 } from "react-native-reanimated";
 import { PersistGate } from "redux-persist/integration/react";
-import { colors, typography } from "./src/theme";
+import { typography } from "./src/theme";
 import { Ionicons } from "@expo/vector-icons";
 import {
   SpaceGrotesk_400Regular,
@@ -218,73 +218,6 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     width: "100%",
-  },
-  backdrop: {
-    ...StyleSheet.absoluteFill,
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
-    zIndex: 10,
-  },
-  backdropPressable: {
-    flex: 1,
-  },
-  drawer: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    backgroundColor: colors.glassStrong,
-    paddingTop: 50,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    borderRightWidth: 1,
-    borderRightColor: colors.border,
-    zIndex: 20,
-  },
-  drawerHeader: {
-    marginBottom: 30,
-    paddingBottom: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-  },
-  drawerTitle: {
-    fontSize: 24,
-    fontFamily: typography.bold,
-    color: colors.text,
-    letterSpacing: -0.6,
-  },
-  drawerSubtitle: {
-    fontSize: 14,
-    color: colors.muted,
-    fontFamily: typography.regular,
-    marginTop: 4,
-  },
-  menuItems: {
-    gap: 8,
-  },
-  menuItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 10,
-    gap: 12,
-  },
-  menuItemActive: {
-    backgroundColor: "rgba(245, 158, 11, 0.14)",
-    borderWidth: 1,
-    borderColor: "rgba(245, 158, 11, 0.5)",
-  },
-  menuItemIcon: {
-    fontSize: 20,
-  },
-  menuItemText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#A5A1C8",
-  },
-  menuItemTextActive: {
-    color: "#4DD0E1",
-    fontWeight: "bold",
   },
   headerBrandContainer: {
     flexDirection: "row",
