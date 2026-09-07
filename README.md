@@ -6,7 +6,7 @@ A student productivity app built to track university courses, assignments, and l
 
 ## Why I Built This
 
-I've noticed I'm having a hard time keeping track of my university assignments and tasks, and I used several existing apps none of which had all the features I wanted. And so I thought: 'Why not build one myself? It could be a fun project for the semester break'.
+I've noticed I'm having a hard time keeping track of my university assignments and tasks, and I used several existing apps none of which had all the features I wanted. And so I thought: "Why not build one myself? It could be a fun project for the semester break"
 
 Coming into this project with no prior JavaScript or TypeScript background, I took a TypeScript course on Udemy to learn the basics, then dove straight into building the app. The main focus of this project was learning application logic, state management, and project structure. The styling was generated with the help of AI tools to save time and keep the focus on code and functionality.
 
