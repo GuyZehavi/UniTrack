@@ -15,6 +15,7 @@ import { Assignment } from "../../types";
 import CourseEntry from "../Courses/CourseEntry";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { formatDate } from "../../utils/dates";
+import { scheduleAssignmentReminder } from "../../notifications/notification";
 
 interface AssignmentModalProps {
   visible: boolean;
@@ -51,7 +52,7 @@ const AssignmentModal: React.FC<AssignmentModalProps> = ({
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const currentErrors: FormErrors = {};
 
     if (!title.trim()) {
@@ -69,12 +70,21 @@ const AssignmentModal: React.FC<AssignmentModalProps> = ({
       return;
     }
 
-    const newAssignment: Assignment = createAssignment(
-      Date.now(),
-      currentCourse.trim(),
+    const notificationId = await scheduleAssignmentReminder(
       title.trim(),
-      formatDate(completeBy!),
+      selectedCourse.trim(),
+      completeBy!,
     );
+
+    const newAssignment: Assignment = {
+      ...createAssignment(
+        Date.now(),
+        currentCourse.trim(),
+        title.trim(),
+        formatDate(completeBy!),
+      ),
+      notificationId: notificationId || undefined,
+    };
 
     dispatch(addAssignment(newAssignment));
     close();
@@ -178,7 +188,7 @@ const AssignmentModal: React.FC<AssignmentModalProps> = ({
                 >
                   {completeBy
                     ? `📅 Complete By: ${formatDate(completeBy)}`
-                    : "📅 Choose Due Date"}
+                    : "📅 Choose Complete By Date"}
                 </Text>
               </Pressable>
             </View>

@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     minWidth: 0,
-    height: 44,
+    height: 48,
     backgroundColor: "#171137",
     borderWidth: 1,
     borderColor: "#514681",

@@ -21,8 +21,6 @@ const SortBar: React.FC<SortBarProps> = ({ currentSort, onSortChange }) => {
             styles.sortButtonText,
             currentSort === Sortings.DATE && styles.sortButtonTextActive,
           ]}
-          numberOfLines={1}
-          ellipsizeMode="tail"
         >
           📅 Sort by Date
         </Text>
@@ -40,8 +38,6 @@ const SortBar: React.FC<SortBarProps> = ({ currentSort, onSortChange }) => {
             styles.sortButtonText,
             currentSort === Sortings.COURSE && styles.sortButtonTextActive,
           ]}
-          numberOfLines={1}
-          ellipsizeMode="tail"
         >
           📚 Sort by Course
         </Text>
@@ -64,11 +60,11 @@ const styles = StyleSheet.create({
   },
   sortButton: {
     flex: 1,
-    paddingVertical: 8,
+    paddingVertical: 10,
     borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",
-    minHeight: 38,
+    minHeight: 44,
     paddingHorizontal: 8,
   },
   sortButtonActive: {
@@ -77,9 +73,12 @@ const styles = StyleSheet.create({
   sortButtonText: {
     color: "#A5A1C8",
     fontSize: 13,
+    lineHeight: 18,
     fontWeight: "600",
     flexShrink: 1,
     textAlign: "center",
+    textAlignVertical: "center",
+    includeFontPadding: false,
   },
   sortButtonTextActive: {
     color: "#100B2E",

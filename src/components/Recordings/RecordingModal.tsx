@@ -255,7 +255,7 @@ const RecordingModal: React.FC<RecordingModalProps> = ({
                 >
                   {completeBy
                     ? `📅 Complete By: ${formatDate(completeBy)}`
-                    : "📅 Choose Due Date"}
+                    : "📅 Choose Complete By Date"}
                 </Text>
               </Pressable>
             </View>

@@ -8,6 +8,7 @@ import {
 } from "../../store/slices/assignmentsSlice";
 import BaseCard from "../common/BaseCard";
 import { formatDateString } from "../../utils/dates";
+import { cancelAssignmentReminder } from "../../notifications/notification";
 
 interface AssignmentCardProps {
   assignment: Assignment;
@@ -15,6 +16,13 @@ interface AssignmentCardProps {
 
 const AssignmentCard: React.FC<AssignmentCardProps> = ({ assignment }) => {
   const dispatch = useAppDispatch();
+
+  const handleToggle = () => {
+    if (!assignment.isCompleted) {
+      cancelAssignmentReminder(assignment.notificationId);
+    }
+    dispatch(toggleAssignment(assignment.id));
+  };
 
   return (
     <BaseCard

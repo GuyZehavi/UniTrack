@@ -32,7 +32,9 @@ const RecordingList: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <AddButton text="Add Recording" onPress={onAddPress} />
+      <View style={styles.addButtonWrapper}>
+        <AddButton text="Add Recording" onPress={onAddPress} />
+      </View>
 
       <SortBar currentSort={sorting} onSortChange={setSorting} />
 
@@ -52,5 +54,9 @@ export default RecordingList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  addButtonWrapper: {
+    marginBottom: 20,
+    alignItems: "center",
   },
 });

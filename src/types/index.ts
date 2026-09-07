@@ -4,6 +4,7 @@ export interface Assignment {
   course: string;
   title: string;
   completeBy: string;
+  notificationId?: string | undefined;
 }
 
 export enum LessonType {

@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { Text, View, StyleSheet, Pressable, Dimensions } from "react-native";
 import { Provider } from "react-redux";
-import { store } from "./src/store/state";
+import { store, persistor } from "./src/store/state";
 import { Screens } from "./src/types";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -10,12 +10,14 @@ import CoursesScreen from "./src/components/Courses";
 import RecordingsScreen from "./src/components/Recordings/RecordingsScreen";
 import HomeScreen from "./src/components/Home/HomeScreen";
 import { NavSidebar } from "./src/components/common/NavSidebar";
+import CosmicBackground from "./src/components/common/CosmicBackground";
 import {
   Easing,
   useSharedValue,
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import { PersistGate } from "redux-persist/integration/react";
 
 const { width } = Dimensions.get("window");
 const DRAWER_WIDTH = Math.min(width * 0.75, 300);
@@ -110,30 +112,34 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
-        <SafeAreaView style={styles.screen}>
-          <View style={styles.topHeader}>
-            <Pressable style={styles.hamburgerButton} onPress={openSideBar}>
-              <Text style={styles.hamburgerIcon}>☰</Text>
-            </Pressable>
-            <Text style={styles.topHeaderTitle}>{getScreenTitle()}</Text>
-            <View style={styles.placeholder} />
-          </View>
+      <PersistGate loading={null} persistor={persistor}>
+        <SafeAreaProvider>
+          <CosmicBackground>
+            <SafeAreaView style={styles.screen}>
+              <View style={styles.topHeader}>
+                <Pressable style={styles.hamburgerButton} onPress={openSideBar}>
+                  <Text style={styles.hamburgerIcon}>☰</Text>
+                </Pressable>
+                <Text style={styles.topHeaderTitle}>{getScreenTitle()}</Text>
+                <View style={styles.placeholder} />
+              </View>
 
-          <View style={styles.contentContainer}>{renderScreen()}</View>
+              <View style={styles.contentContainer}>{renderScreen()}</View>
 
-          <NavSidebar
-            isOpen={isOpen}
-            slideAnimation={slideAnimation}
-            backdropAnimation={backdropAnimation}
-            drawerWidth={DRAWER_WIDTH}
-            currentScreen={currentScreen}
-            navItems={NAV_ITEMS}
-            onClose={closeSideBar}
-            onSelect={selectScreen}
-          />
-        </SafeAreaView>
-      </SafeAreaProvider>
+              <NavSidebar
+                isOpen={isOpen}
+                slideAnimation={slideAnimation}
+                backdropAnimation={backdropAnimation}
+                drawerWidth={DRAWER_WIDTH}
+                currentScreen={currentScreen}
+                navItems={NAV_ITEMS}
+                onClose={closeSideBar}
+                onSelect={selectScreen}
+              />
+            </SafeAreaView>
+          </CosmicBackground>
+        </SafeAreaProvider>
+      </PersistGate>
     </Provider>
   );
 }
@@ -141,7 +147,7 @@ export default function App() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#100B2E",
+    backgroundColor: "transparent",
     width: "100%",
     maxWidth: 500,
     alignSelf: "center",
@@ -152,22 +158,26 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingVertical: 12,
+    backgroundColor: "rgba(10, 8, 25, 0.45)",
     borderBottomWidth: 1,
-    borderBottomColor: "#1D1645",
+    borderBottomColor: "rgba(255, 255, 255, 0.08)",
   },
   hamburgerButton: {
     padding: 8,
     borderRadius: 8,
-    backgroundColor: "#1D1645",
+    backgroundColor: "rgba(255, 255, 255, 0.06)",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.1)",
   },
   hamburgerIcon: {
     fontSize: 20,
-    color: "#4DD0E1",
+    color: "#E2E8F0",
   },
   topHeaderTitle: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#F5F3FF",
+    fontWeight: "600",
+    color: "#FFFFFF",
+    letterSpacing: 0.5,
   },
   placeholder: {
     width: 36,
