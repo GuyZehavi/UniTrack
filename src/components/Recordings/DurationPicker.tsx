@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#171137",
+    backgroundColor: "rgba(18, 12, 28, 0.55)",
     borderWidth: 1,
     borderColor: "#514681",
     borderRadius: 10,
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
   dropdownList: {
     marginTop: 6,
-    backgroundColor: "#171137",
+    backgroundColor: "rgba(18, 12, 28, 0.55)",
     borderWidth: 1,
     borderColor: "#514681",
     borderRadius: 10,

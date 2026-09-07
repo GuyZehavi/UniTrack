@@ -3,6 +3,7 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 import { useAppDispatch } from "../../hooks";
 import { deleteCourse } from "../../store/slices/coursesSlice";
 import type { Course } from "../../types";
+import { colors, glassSurface, typography } from "../../theme";
 
 interface CourseCardProps {
   course: Course;
@@ -34,13 +35,10 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
 const styles = StyleSheet.create({
   card: {
+    ...glassSurface,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#211A45",
     padding: 14,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: "#453A76",
     gap: 12,
   },
   cardBody: {
@@ -51,13 +49,14 @@ const styles = StyleSheet.create({
   courseName: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#F5F3FF",
+    color: colors.text,
+    fontFamily: typography.semibold,
   },
   deleteButton: {
     width: 28,
     height: 28,
     borderRadius: 6,
-    backgroundColor: "#4A213E",
+    backgroundColor: "rgba(247, 37, 133, 0.14)",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -65,9 +64,9 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   deleteButtonText: {
-    color: "#FF8BA7",
+    color: colors.magenta,
     fontSize: 14,
-    fontWeight: "bold",
+    fontFamily: typography.bold,
     userSelect: "none",
   },
 });

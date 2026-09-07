@@ -18,6 +18,13 @@ import {
   withTiming,
 } from "react-native-reanimated";
 import { PersistGate } from "redux-persist/integration/react";
+import { colors, typography } from "./src/theme";
+import {
+  SpaceGrotesk_400Regular,
+  SpaceGrotesk_600SemiBold,
+  SpaceGrotesk_700Bold,
+  useFonts,
+} from "@expo-google-fonts/space-grotesk";
 
 const { width } = Dimensions.get("window");
 const DRAWER_WIDTH = Math.min(width * 0.75, 300);
@@ -30,6 +37,11 @@ const NAV_ITEMS = [
 ];
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    SpaceGrotesk_400Regular,
+    SpaceGrotesk_600SemiBold,
+    SpaceGrotesk_700Bold,
+  });
   const [currentScreen, setCurrentScreen] = useState<Screens>(Screens.HOME);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -110,6 +122,8 @@ export default function App() {
     }
   };
 
+  if (!fontsLoaded) return null;
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -175,9 +189,9 @@ const styles = StyleSheet.create({
   },
   topHeaderTitle: {
     fontSize: 18,
-    fontWeight: "600",
+    fontFamily: typography.semibold,
     color: "#FFFFFF",
-    letterSpacing: 0.5,
+    letterSpacing: -0.3,
   },
   placeholder: {
     width: 36,
@@ -199,28 +213,30 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     left: 0,
-    backgroundColor: "#171137",
+    backgroundColor: colors.glassStrong,
     paddingTop: 50,
     paddingHorizontal: 20,
     paddingBottom: 20,
     borderRightWidth: 1,
-    borderRightColor: "#2E2469",
+    borderRightColor: colors.border,
     zIndex: 20,
   },
   drawerHeader: {
     marginBottom: 30,
     paddingBottom: 16,
     borderBottomWidth: 1,
-    borderBottomColor: "#2E2469",
+    borderBottomColor: colors.border,
   },
   drawerTitle: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "#4DD0E1",
+    fontFamily: typography.bold,
+    color: colors.cyan,
+    letterSpacing: -0.6,
   },
   drawerSubtitle: {
     fontSize: 14,
-    color: "#A5A1C8",
+    color: colors.muted,
+    fontFamily: typography.regular,
     marginTop: 4,
   },
   menuItems: {

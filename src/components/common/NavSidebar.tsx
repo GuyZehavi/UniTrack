@@ -5,6 +5,7 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 import { Screens } from "../../types";
+import { colors, typography } from "../../theme";
 
 interface NavSidebarProps {
   isOpen: boolean;
@@ -110,29 +111,31 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     left: 0,
-    backgroundColor: "#171137",
+    backgroundColor: colors.glassStrong,
     paddingTop: 50,
     paddingHorizontal: 20,
     paddingBottom: 20,
     borderRightWidth: 1,
-    borderRightColor: "#2E2469",
+    borderRightColor: colors.border,
     zIndex: 20,
   },
   drawerHeader: {
     marginBottom: 30,
     paddingBottom: 16,
     borderBottomWidth: 1,
-    borderBottomColor: "#2E2469",
+    borderBottomColor: colors.border,
     alignItems: "flex-start",
   },
   drawerTitle: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "#4DD0E1",
+    fontFamily: typography.bold,
+    color: colors.cyan,
+    letterSpacing: -0.6,
   },
   drawerSubtitle: {
     fontSize: 14,
-    color: "#A5A1C8",
+    color: colors.muted,
+    fontFamily: typography.regular,
     marginTop: 4,
   },
   menuItems: {
@@ -148,9 +151,9 @@ const styles = StyleSheet.create({
     minHeight: 48,
   },
   menuItemActive: {
-    backgroundColor: "#4DD0E120",
+    backgroundColor: "rgba(76, 201, 240, 0.14)",
     borderWidth: 1,
-    borderColor: "#4DD0E1",
+    borderColor: colors.cyan,
   },
   menuItemIcon: {
     fontSize: 20,
@@ -159,13 +162,13 @@ const styles = StyleSheet.create({
   },
   menuItemText: {
     fontSize: 16,
-    fontWeight: "600",
-    color: "#A5A1C8",
+    fontFamily: typography.semibold,
+    color: colors.muted,
     flex: 1,
     minWidth: 0,
   },
   menuItemTextActive: {
-    color: "#4DD0E1",
-    fontWeight: "bold",
+    color: colors.cyan,
+    fontFamily: typography.bold,
   },
 });

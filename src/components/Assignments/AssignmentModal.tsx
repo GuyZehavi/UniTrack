@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
   modalCard: {
     width: "100%",
     maxWidth: 420,
-    backgroundColor: "#211A45",
+    backgroundColor: "rgba(18, 12, 28, 0.72)",
     borderRadius: 14,
     padding: 20,
     gap: 16,
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   input: {
-    backgroundColor: "#171137",
+    backgroundColor: "rgba(18, 12, 28, 0.55)",
     borderWidth: 1,
     borderColor: "#514681",
     borderRadius: 10,
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     minHeight: 44,
   },
   saveButtonText: {
-    color: "#100B2E",
+    color: "#160D22",
     fontSize: 15,
     fontWeight: "600",
     userSelect: "none",
@@ -333,9 +333,9 @@ const styles = StyleSheet.create({
     userSelect: "none",
   },
   datePickerButton: {
-    backgroundColor: "#1D1645",
+    backgroundColor: "rgba(18, 12, 28, 0.55)",
     borderWidth: 1,
-    borderColor: "#2E2469",
+    borderColor: "rgba(255, 255, 255, 0.12)",
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 12,

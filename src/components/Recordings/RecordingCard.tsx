@@ -8,6 +8,7 @@ import {
   toggleRecording,
 } from "../../store/slices/RecordingsSlice";
 import { formatDateString } from "../../utils/dates";
+import { colors, typography } from "../../theme";
 
 interface RecordingCardProps {
   recording: Recording;
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     fontSize: 12,
-    fontWeight: "500",
+    fontFamily: typography.regular,
     userSelect: "none",
   },
   typeBadge: {
@@ -93,10 +94,10 @@ const styles = StyleSheet.create({
     color: "#6EE7B7",
   },
   completeByBadge: {
-    backgroundColor: "#4B3C2B",
+    backgroundColor: "rgba(255, 183, 3, 0.14)",
   },
   completeByBadgeText: {
-    color: "#F5C96A",
+    color: colors.amber,
   },
   lessonDateBadge: {
     backgroundColor: "#352758",

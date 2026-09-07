@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { useAppSelector } from "../../hooks";
 import { parseDate } from "../../utils/dates";
+import { colors, glassSurface, typography } from "../../theme";
 
 interface UpcomingTask {
   id: string | number;
@@ -104,7 +105,6 @@ const HomeScreen: React.FC = () => {
       <View style={styles.statsGrid}>
         <View style={styles.statsRow}>
           <View style={styles.statCard}>
-            <Text style={styles.statIcon}>📋</Text>
             <Text style={styles.statNumber}>{totalTasks}</Text>
             <Text
               style={styles.statLabel}
@@ -116,7 +116,6 @@ const HomeScreen: React.FC = () => {
           </View>
 
           <View style={styles.statCard}>
-            <Text style={styles.statIcon}>🎓</Text>
             <Text style={styles.statNumber}>{courses.length}</Text>
             <Text
               style={styles.statLabel}
@@ -130,7 +129,6 @@ const HomeScreen: React.FC = () => {
 
         <View style={[styles.statCard, styles.statCardWide]}>
           <View style={styles.wideCardContent}>
-            <Text style={styles.statIcon}>⏱️</Text>
             <View>
               <Text
                 style={styles.statLabel}
@@ -207,12 +205,16 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 26,
-    fontWeight: "bold",
-    color: "#F5F3FF",
+    fontFamily: typography.bold,
+    color: colors.text,
+    letterSpacing: -0.8,
   },
   subtitle: {
     fontSize: 14,
-    color: "#A5A1C8",
+    color: colors.muted,
+    fontFamily: typography.regular,
+    letterSpacing: 1.1,
+    textTransform: "uppercase",
     marginTop: 2,
   },
   statsGrid: {
@@ -224,11 +226,8 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   statCard: {
+    ...glassSurface,
     flex: 1,
-    backgroundColor: "#1D1645",
-    borderWidth: 1,
-    borderColor: "#2E2469",
-    borderRadius: 14,
     padding: 14,
     alignItems: "center",
     justifyContent: "center",
@@ -247,30 +246,31 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
   },
-  statIcon: {
-    fontSize: 22,
-    marginBottom: 4,
-  },
   statNumber: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#F5F3FF",
+    fontSize: 32,
+    fontFamily: typography.bold,
+    color: colors.text,
+    letterSpacing: -1,
   },
   statNumberAccent: {
-    fontSize: 26,
-    fontWeight: "bold",
-    color: "#4DD0E1",
+    fontSize: 32,
+    fontFamily: typography.bold,
+    color: colors.cyan,
+    letterSpacing: -1,
   },
   statLabel: {
     fontSize: 13,
-    fontWeight: "600",
-    color: "#D2CDEE",
+    fontFamily: typography.semibold,
+    color: colors.muted,
+    letterSpacing: 0.8,
+    textTransform: "uppercase",
     marginTop: 2,
     flexShrink: 1,
   },
   statSubText: {
     fontSize: 11,
-    color: "#A5A1C8",
+    color: colors.muted,
+    fontFamily: typography.regular,
     flexShrink: 1,
   },
   sectionHeader: {
@@ -281,15 +281,16 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "#F5F3FF",
+    fontFamily: typography.bold,
+    color: colors.text,
+    letterSpacing: -0.4,
     flexShrink: 1,
   },
   taskCountBadge: {
-    backgroundColor: "#2E2469",
-    color: "#4DD0E1",
+    backgroundColor: "rgba(76, 201, 240, 0.14)",
+    color: colors.cyan,
     fontSize: 12,
-    fontWeight: "bold",
+    fontFamily: typography.bold,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 10,
@@ -298,12 +299,9 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   taskCard: {
+    ...glassSurface,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#1D1645",
-    borderWidth: 1,
-    borderColor: "#2E2469",
-    borderRadius: 12,
     padding: 12,
     gap: 12,
   },
@@ -315,16 +313,17 @@ const styles = StyleSheet.create({
   },
   taskTitle: {
     fontSize: 15,
-    fontWeight: "600",
-    color: "#F5F3FF",
+    fontFamily: typography.semibold,
+    color: colors.text,
     marginBottom: 2,
   },
   taskCourse: {
     fontSize: 12,
-    color: "#A5A1C8",
+    color: colors.muted,
+    fontFamily: typography.regular,
   },
   badge: {
-    backgroundColor: "#2E2469",
+    backgroundColor: "rgba(255, 255, 255, 0.08)",
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 8,
@@ -336,19 +335,17 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     fontSize: 12,
-    fontWeight: "600",
-    color: "#D2CDEE",
+    fontFamily: typography.semibold,
+    color: colors.muted,
     flexShrink: 1,
     textAlign: "center",
   },
   badgeTextUrgent: {
-    color: "#FF5C8A",
-    fontWeight: "700",
+    color: colors.magenta,
+    fontFamily: typography.bold,
   },
   emptyContainer: {
-    backgroundColor: "#171137",
-    borderWidth: 1,
-    borderColor: "#2E2469",
+    ...glassSurface,
     borderStyle: "dashed",
     borderRadius: 14,
     padding: 24,
@@ -358,7 +355,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 14,
-    color: "#A5A1C8",
-    fontWeight: "500",
+    color: colors.muted,
+    fontFamily: typography.regular,
   },
 });

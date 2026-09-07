@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View, Pressable, StyleSheet } from "react-native";
+import { colors, typography } from "../../theme";
 
 interface AddButtonProps {
   text: string;
@@ -26,12 +27,12 @@ export default AddButton;
 
 const styles = StyleSheet.create({
   addButton: {
-    backgroundColor: "#65D6E8",
+    backgroundColor: colors.amber,
     paddingHorizontal: 20,
     paddingVertical: 12,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: "#65D6E8",
+    borderColor: colors.amber,
     justifyContent: "center",
     alignItems: "center",
     height: 48,
@@ -40,10 +41,10 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   addButtonText: {
-    fontWeight: "600",
+    fontFamily: typography.semibold,
     fontSize: 15,
     lineHeight: 20,
-    color: "#100B2E",
+    color: "#160D22",
     userSelect: "none",
     flexShrink: 1,
     textAlign: "center",

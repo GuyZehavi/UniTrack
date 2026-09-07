@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { colors, glassSurface, typography } from "../../theme";
 
 interface BaseCardProps {
   title: string;
@@ -64,13 +65,10 @@ const BaseCard: React.FC<BaseCardProps> = ({
 
 const styles = StyleSheet.create({
   card: {
+    ...glassSurface,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#211A45",
     padding: 14,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: "#453A76",
     gap: 12,
   },
   checkbox: {
@@ -89,7 +87,7 @@ const styles = StyleSheet.create({
   checkmark: {
     color: "#FFFFFF",
     fontSize: 13,
-    fontWeight: "bold",
+    fontFamily: typography.bold,
     userSelect: "none",
   },
   cardBody: {
@@ -100,11 +98,12 @@ const styles = StyleSheet.create({
   taskTitle: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#F5F3FF",
+    color: colors.text,
+    fontFamily: typography.semibold,
   },
   completedText: {
     textDecorationLine: "line-through",
-    color: "#9E96C2",
+    color: colors.muted,
   },
   metaRow: {
     flexDirection: "row",
@@ -114,15 +113,15 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
   badge: {
-    backgroundColor: "#30285A",
+    backgroundColor: "rgba(255, 255, 255, 0.08)",
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
   },
   badgeText: {
     fontSize: 12,
-    color: "#D2CDEE",
-    fontWeight: "500",
+    color: colors.muted,
+    fontFamily: typography.regular,
     userSelect: "none",
     flexShrink: 1,
   },
@@ -130,7 +129,7 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 6,
-    backgroundColor: "#4A213E",
+    backgroundColor: "rgba(247, 37, 133, 0.14)",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -138,9 +137,9 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   deleteButtonText: {
-    color: "#FF8BA7",
+    color: colors.magenta,
     fontSize: 14,
-    fontWeight: "bold",
+    fontFamily: typography.bold,
     userSelect: "none",
   },
 });

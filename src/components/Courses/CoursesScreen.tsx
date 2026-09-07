@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet } from "react-native";
 import CoursesList from "./CoursesList";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { colors, typography } from "../../theme";
 
 export default function CoursesScreen() {
   return (
@@ -23,7 +24,7 @@ export default function CoursesScreen() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#100B2E",
+    backgroundColor: "transparent",
     alignItems: "center",
   },
   container: {
@@ -40,8 +41,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "#F5C96A",
+    fontFamily: typography.bold,
+    color: colors.amber,
+    letterSpacing: -0.6,
     userSelect: "none",
   },
 });

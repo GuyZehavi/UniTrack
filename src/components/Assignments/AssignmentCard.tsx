@@ -9,6 +9,7 @@ import {
 import BaseCard from "../common/BaseCard";
 import { formatDateString } from "../../utils/dates";
 import { cancelAssignmentReminder } from "../../notifications/notification";
+import { colors, typography } from "../../theme";
 
 interface AssignmentCardProps {
   assignment: Assignment;
@@ -47,22 +48,22 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({ assignment }) => {
 
 const styles = StyleSheet.create({
   badge: {
-    backgroundColor: "#30285A",
+    backgroundColor: "rgba(255, 255, 255, 0.08)",
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
   },
   badgeText: {
     fontSize: 12,
-    color: "#D2CDEE",
-    fontWeight: "500",
+    color: colors.muted,
+    fontFamily: typography.regular,
     userSelect: "none",
   },
   dateBadge: {
-    backgroundColor: "#4B3C2B",
+    backgroundColor: "rgba(255, 183, 3, 0.14)",
   },
   dateBadgeText: {
-    color: "#F5C96A",
+    color: colors.amber,
   },
 });
 

@@ -5,6 +5,7 @@ import CourseCard from "./CoursesCard";
 import { addCourse } from "../../store/slices/coursesSlice";
 import { AddButton, BaseList } from "../common";
 import type { Course } from "../../types";
+import { colors, typography } from "../../theme";
 
 const CoursesList: React.FC = () => {
   const [input, setInput] = useState<string>("");
@@ -24,7 +25,7 @@ const CoursesList: React.FC = () => {
         <TextInput
           style={styles.input}
           placeholder="Course Name"
-          placeholderTextColor="#A5A1C8"
+          placeholderTextColor={colors.muted}
           value={input}
           onChangeText={setInput}
         ></TextInput>
@@ -58,13 +59,14 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
     height: 48,
-    backgroundColor: "#171137",
+    backgroundColor: colors.glass,
     borderWidth: 1,
     borderColor: "#514681",
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 10,
     fontSize: 15,
-    color: "#F5F3FF",
+    color: colors.text,
+    fontFamily: typography.regular,
   },
 });

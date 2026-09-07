@@ -1,5 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { Sortings } from "../../types";
+import { colors, glassSurface, typography } from "../../theme";
 
 interface SortBarProps {
   currentSort: Sortings;
@@ -50,9 +51,8 @@ export default SortBar;
 
 const styles = StyleSheet.create({
   sortContainer: {
+    ...glassSurface,
     flexDirection: "row",
-    backgroundColor: "#1D1645",
-    borderRadius: 10,
     padding: 3,
     marginBottom: 12,
     gap: 6,
@@ -68,20 +68,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   sortButtonActive: {
-    backgroundColor: "#4DD0E1",
+    backgroundColor: colors.cyan,
   },
   sortButtonText: {
-    color: "#A5A1C8",
+    color: colors.muted,
     fontSize: 13,
     lineHeight: 18,
-    fontWeight: "600",
+    fontFamily: typography.semibold,
     flexShrink: 1,
     textAlign: "center",
     textAlignVertical: "center",
     includeFontPadding: false,
   },
   sortButtonTextActive: {
-    color: "#100B2E",
-    fontWeight: "700",
+    color: "#160D22",
+    fontFamily: typography.bold,
   },
 });
