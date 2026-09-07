@@ -2,11 +2,6 @@
   "expo": {
     "name": "UniTrack",
     "slug": "UniTrack",
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#080712"
-    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +17,19 @@
       "predictiveBackGestureEnabled": false,
       "package": "com.guyze.UniTrack"
     },
-    "plugins": ["@react-native-community/datetimepicker", "expo-font"],
+    "plugins": [
+      "@react-native-community/datetimepicker",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#080712",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 180,
+          "resizeMode": "contain"
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "8e5d834d-8b8e-438d-9f79-a94ea349088b"

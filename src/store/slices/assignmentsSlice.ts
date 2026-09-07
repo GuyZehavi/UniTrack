@@ -43,9 +43,8 @@ export const selectSortedByCourseAssignments = createSelector(
     return [...items].sort((a, b) => {
       if (a.isCompleted !== b.isCompleted) {
         return Number(a.isCompleted) - Number(b.isCompleted);
-      } else {
-        return Number(a.course) - Number(b.course);
       }
+      return (a.course || "").localeCompare(b.course || "");
     });
   },
 );

@@ -45,7 +45,7 @@ export default BaseList;
 const styles = StyleSheet.create({
   listContent: {
     gap: 7,
-    paddingBottom: 24,
+    paddingBottom: 110,
   },
   emptyContainer: {
     paddingVertical: 40,

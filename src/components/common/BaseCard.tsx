@@ -69,6 +69,9 @@ const BaseCard: React.FC<BaseCardProps> = ({
 const styles = StyleSheet.create({
   card: {
     ...glassSurface,
+    backgroundColor: "rgba(55, 15, 45, 0.52)",
+    borderColor: "rgba(255, 180, 220, 0.18)",
+    borderWidth: 1,
     flexDirection: "row",
     alignItems: "center",
     padding: 14,
@@ -110,14 +113,14 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
   badge: {
-    backgroundColor: "rgba(255, 255, 255, 0.08)",
+    backgroundColor: "rgba(0, 0, 0, 0.22)",
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
   },
   badgeText: {
     fontSize: 12,
-    color: colors.muted,
+    color: "#F3E8FF",
     fontFamily: typography.regular,
     userSelect: "none",
     flexShrink: 1,
